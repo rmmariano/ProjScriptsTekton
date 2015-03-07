@@ -4,7 +4,7 @@ from config.template_middleware import TemplateResponse
 from gaecookie.decorator import no_csrf
 from gaepermission.decorator import login_not_required
 
-
+#este é o index da página
 @login_not_required
 @no_csrf
 def index():

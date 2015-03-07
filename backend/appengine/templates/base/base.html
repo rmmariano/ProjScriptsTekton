@@ -17,7 +17,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{% block title %}Tekton Fullstrack{% endblock %}</title>
+    <title>{% block title %} Online Trades {% endblock %}</title>
     <!-- Bootstrap -->
 
     <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -48,15 +48,31 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="/" class="navbar-brand">Tekton</a>
+            <a href="/" class="navbar-brand"> Online Trades </a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 {% macro select_tab(tab='') %}
-                    <li {{ 'class=active' if tab=='COURSES' }}><a href="/courses">{% trans %}Courses{% endtrans %}</a>
+                    <!--
+                    <li {{ 'class=active' if tab=='COURSES' }}>
+                        <a href="/courses">{% trans %} Courses {% endtrans %}</a>
+                    </li>
+                    -->
+                    <li {{ 'class=active' if tab=='CATEGORIAS' }}>
+                        <a href="/categorias">{% trans %} Categorias {% endtrans %}</a>
+                    </li>
+                    <li {{ 'class=active' if tab=='INSTRUCOES' }}>
+                        <a href="/instrucoes">{% trans %} Instruções {% endtrans %}</a>
+                    </li>
+                    <li {{ 'class=active' if tab=='CONTATO' }}>
+                        <a href="/contato">{% trans %} Contato {% endtrans %}</a>
+                    </li>
+                    <li {{ 'class=active' if tab=='SOBRE' }}>
+                        <a href="/sobre">{% trans %} Sobre {% endtrans %}</a>
                     </li>
                     {% if _logged_user and 'ADMIN' in _logged_user.groups %}
-                        <li {{ 'class=active' if tab=='ADMIN' }}><a href="/admin">{% trans %}Admin{% endtrans %}</a>
+                        <li {{ 'class=active' if tab=='ADMIN' }}>
+                            <a href="/admin">{% trans %}Admin{% endtrans %}</a>
                         </li>
                     {% endif %}
                 {% endmacro %}
@@ -85,8 +101,12 @@
                         </ul>
                     </div>
                 {% else %}
-                    <a class="btn btn-success" href="{{ _login_path }}">{% trans %}Login{% endtrans %}</a>
+                    <!-- <a class="btn btn-danger" href="{{ _login_path }}">{% trans %} Logar-se {% endtrans %}</a>
+                    <a class="btn btn-danger" href="/login?ret_path=%2F"> Logar-se </a>
+                    <a class="btn btn-danger" href="#">Registrar-se </a> -->
 
+                    <a href="/login?ret_path=%2F"> <button type="button" class="btn btn-danger"> Logar </button></a>
+                    <a href="#"> <button type="button" class="btn btn-danger"> Registrar </button></a>
                 {% endif %}
 
             </div>
@@ -96,9 +116,18 @@
 {% block body %}{% endblock %}
 <div class="footer">
     <div class="container">
-        <p class="text-muted text-right">Tekton Full-Stack: <a target="_blank"
-                                                               href="https://github.com/renzon/tekton-fullstack">Git
-            Hub</a></p>
+        <div class="pull-left">
+            <p> Copyright © 2015 | Todos os direitos reservados. </p>
+        </div>
+        <div class="pull-right">
+            <p> Online Trades </p>
+        </div>
+
+        <!--
+        <p class="text-muted text-right">
+            Tekton Full-Stack: <a target="_blank" href="https://github.com/renzon/tekton-fullstack">GitHub</a>
+        </p>
+        -->
     </div>
 </div>
 </body>
