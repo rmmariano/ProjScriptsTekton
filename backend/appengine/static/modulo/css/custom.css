@@ -1,0 +1,35 @@
+.tam_img{
+    width: 170px; height: 170px;
+}
+#buscarPor{
+    max-width: 500px;
+}
+.col-md-3, .col-md-6{
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+p{
+    margin-top: 5px;
+}
+.linha{
+    width: 100%;
+    margin: 15px 0px;
+    border: 1px solid;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 0px;
+    border-color: #ddd;
+}
+
+.btPreto{ /* botão Preto */
+    color: #fff;
+    background-color: #000000;
+}
+.btPreto:hover{ /* quando btPreto for selecionado */
+    color: #fff;
+    background-color: #9A9A9A;
+}
+.btPreto:focus{ /* quando btPreto estiver em foco */
+    color: #fff;
+    background-color: #9A9A9A;
+}

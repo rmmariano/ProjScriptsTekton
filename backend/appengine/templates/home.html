@@ -2,13 +2,9 @@
 {% block css %}
     <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-social.css"/>
     <link rel="stylesheet" href="/static/font-awesome-4.2.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="/static/modulo/css/custom.css"/>
 {% endblock %}
 {% block body %}
-    <style>
-        .tam_img{
-            width: 170px; height: 170px;
-        }
-    </style>
     <div class="container text-center">
         <div class="row">
             <div class="col-md-12">
@@ -17,62 +13,85 @@
             </div>
         </div>
 
-        <div class="pull-left">
-            <h4> Anúncios recentes: </h4>
-        </div>
+        <div class="linha"></div>
 
-        <br/>
-
-        <div style="margin-top: 25px;">
+        <div id = "buscarPor" class="container text-center">
             <div class="row">
-                <div class="col-md-4">
-                    <div class="well">
-                        <img class="img-rounded tam_img" src="/static/img/itens/livros/assassinscreedrenascenca.jpg">
-                        <h4> Assassin's Creed: Renascença </h4>
-                        <p><a href="#" class="btn btn-primary"> Ver detalhes »</a></p>
-                    </div>
+                <div class="col-md-3">
+                    <p> Buscar por: </p>
                 </div>
-                <div class="col-md-4">
-                    <div class="well">
-                        <img class="img-rounded tam_img" src="/static/img/itens/cds/OOR_The_Beginning.jpg">
-                        <h4> CD The Beginning (OOR) </h4>
-                        <p><a href="#" class="btn btn-primary"> Ver detalhes »</a></p>
-                    </div>
+                <div class="col-md-6">
+                    <select class="form-control">
+                        <option> Livros, Mangás e HQs</option>
+                        <option> CDs, DVDs e BLU-RAYs </option>
+                        <option> Vestuário </option>
+                        <option> Informática </option>
+                        <option> Brinquedos e Games </option>
+                        <option> Móveis </option>
+                        <option> Outros </option>
+                    </select>
                 </div>
-                <div class="col-md-4">
-                    <div class="well">
-                        <img class="img-rounded tam_img" src="/static/img/itens/livros/AmericanFile2.jpg">
-                        <h4> American English File 2 </h4>
-                        <p><a href="#" class="btn btn-primary"> Ver detalhes »</a></p>
-                    </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btPreto"> Buscar </button>
                 </div>
-                <div class="col-md-4">
-                    <div class="well">
-                        <img class="img-rounded tam_img" src="/static/img/itens/eletronicos/Samsung_Galaxy_Y.jpg">
-                        <h4> Samsung Galaxy Y </h4>
-                        <p><a href="#" class="btn btn-primary"> Ver detalhes »</a></p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="well">
-                        <img class="img-rounded tam_img" src="/static/img/itens/brinquedos/pelucia-jirachi.jpg">
-                        <h4> Pelúcia Jirachi </h4>
-                        <p><a href="#" class="btn btn-primary"> Ver detalhes »</a></p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="well">
-                        <img class="img-rounded tam_img" src="/static/img/itens/livros/Programao-use-a-cabeca.jpg">
-                        <h4> Use a Cabeça! Programação </h4>
-                        <p><a href="#" class="btn btn-primary"> Ver detalhes »</a></p>
-                    </div>
-                </div>
-                <!--
-                <div class="col-md-6 col-md-offset-3">
-                    <iframe width="560" height="315" src="//www.youtube.com/embed/videoseries?list=PLA05yVJtRWYRGIeBxag8uT-3ftcMVT5oF" frameborder="0" allowfullscreen></iframe>
-                </div>
-                -->
             </div>
         </div>
-    </div>
+
+        <div class="linha"></div>
+
+        <div id="anunciosRecentes">
+            <div class="pull-left">
+                <h4> Anúncios recentes: </h4>
+            </div>
+            <br/>
+            <div id="anuncios" style="margin-top: 40px;">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="well">
+                            <img class="img-rounded tam_img" src="/static/img/itens/livros/assassinscreedrenascenca.jpg">
+                            <h4> Assassin's Creed: Renascença </h4>
+                            <p><a href="#" class="btn btn-primary"> Ver detalhes »</a></p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="well">
+                            <img class="img-rounded tam_img" src="/static/img/itens/cds/OOR_The_Beginning.jpg">
+                            <h4> CD The Beginning (OOR) </h4>
+                            <p><a href="#" class="btn btn-primary"> Ver detalhes »</a></p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="well">
+                            <img class="img-rounded tam_img" src="/static/img/itens/livros/AmericanFile2.jpg">
+                            <h4> American English File 2 </h4>
+                            <p><a href="#" class="btn btn-primary"> Ver detalhes »</a></p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="well">
+                            <img class="img-rounded tam_img" src="/static/img/itens/eletronicos/Samsung_Galaxy_Y.jpg">
+                            <h4> Samsung Galaxy Y </h4>
+                            <p><a href="#" class="btn btn-primary"> Ver detalhes »</a></p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="well">
+                            <img class="img-rounded tam_img" src="/static/img/itens/brinquedos/pelucia-jirachi.jpg">
+                            <h4> Pelúcia Jirachi </h4>
+                            <p><a href="#" class="btn btn-primary"> Ver detalhes »</a></p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="well">
+                            <img class="img-rounded tam_img" src="/static/img/itens/livros/Programao-use-a-cabeca.jpg">
+                            <h4> Use a Cabeça! Programação </h4>
+                            <p><a href="#" class="btn btn-primary"> Ver detalhes »</a></p>
+                        </div>
+                    </div>
+                </div> <!-- .row -->
+            </div> <!-- id="anuncios" -->
+        </div> <!-- id="anunciosRecentes" -->
+
+        <div class="linha"></div>
+    </div> <!-- class="container text-center" -->
 {% endblock %}
