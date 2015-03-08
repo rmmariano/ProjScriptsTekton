@@ -4,6 +4,11 @@
     <link rel="stylesheet" href="/static/font-awesome-4.2.0/css/font-awesome.min.css"/>
 {% endblock %}
 {% block body %}
+    <style>
+        .tam_img{
+            width: 170px; height: 170px;
+        }
+    </style>
     <div class="container text-center">
         <div class="row">
             <div class="col-md-12">
@@ -12,43 +17,54 @@
             </div>
         </div>
 
+        <div class="pull-left">
+            <h4> Anúncios recentes: </h4>
+        </div>
+
+        <br/>
+
         <div style="margin-top: 25px;">
             <div class="row">
                 <div class="col-md-4">
                     <div class="well">
-                        <h2>{% trans %}Create CRUD code on
-                            <a href="https://cloud.google.com/products/app-engine/">App Engine</a>{% endtrans %}
-                        </h2>
-                        <br/>
-
-                        <p>
-                            <a href="/courses" class="btn btn-primary"></i>{% trans %} Check Courses App
-                                Out{% endtrans %} &raquo;</a>
-                        </p>
+                        <img class="img-rounded tam_img" src="/static/img/itens/livros/assassinscreedrenascenca.jpg">
+                        <h4> Assassin's Creed: Renascença </h4>
+                        <p><a href="#" class="btn btn-primary"> Ver detalhes »</a></p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="well">
-                        <h2>{% trans %}Tekton is open source.{% endtrans %}</h2>
-                        <br/>
-
-                        <p>
-                            <a href="https://github.com/renzon/tekton-fullstack" class="btn btn-social btn-github"><i
-                                    class="fa fa-github"></i>{% trans %}Check Git Hub Out{% endtrans %} &raquo;</a>
-                        </p>
+                        <img class="img-rounded tam_img" src="/static/img/itens/cds/OOR_The_Beginning.jpg">
+                        <h4> CD The Beginning (OOR) </h4>
+                        <p><a href="#" class="btn btn-primary"> Ver detalhes »</a></p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="well">
-                        <h2>{% trans %}Create CRUD code on
-                            <a href="https://cloud.google.com/products/app-engine/">App Engine</a>{% endtrans %}
-                        </h2>
-                        <br/>
-
-                        <p>
-                            <a href="/courses" class="btn btn-primary"></i>{% trans %} Check Courses App
-                                Out{% endtrans %} &raquo;</a>
-                        </p>
+                        <img class="img-rounded tam_img" src="/static/img/itens/livros/AmericanFile2.jpg">
+                        <h4> American File 2 </h4>
+                        <p><a href="#" class="btn btn-primary"> Ver detalhes »</a></p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="well">
+                        <img class="img-rounded tam_img" src="/static/img/itens/eletronicos/Samsung_Galaxy_Y.jpg">
+                        <h4> Samsung Galaxy Y </h4>
+                        <p><a href="#" class="btn btn-primary"> Ver detalhes »</a></p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="well">
+                        <img class="img-rounded tam_img" src="/static/img/itens/brinquedos/pelucia-jirachi.jpg">
+                        <h4> Pelúcia Jirachi </h4>
+                        <p><a href="#" class="btn btn-primary"> Ver detalhes »</a></p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="well">
+                        <img class="img-rounded tam_img" src="/static/img/itens/livros/Programao-use-a-cabeca.jpg">
+                        <h4> Use a Cabeça! Programação </h4>
+                        <p><a href="#" class="btn btn-primary"> Ver detalhes »</a></p>
                     </div>
                 </div>
                 <!--
