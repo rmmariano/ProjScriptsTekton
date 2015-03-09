@@ -1,16 +1,31 @@
-.tam_img{
-    width: 170px; height: 170px;
+/* colocando mais css ao já existente do bootstrap*/
+.row{
+    margin-right: 0px;
+    margin-left: 0px;
 }
-#buscarPor{
-    max-width: 500px;
+
+.col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12{
+    padding: 10px 5px;
 }
-.col-md-3, .col-md-6{
-    padding-bottom: 10px;
-    padding-top: 10px;
+
+.form-group{
+    width: 100%;
+    margin-bottom: 0px;
 }
+
+/* colocando mais css ao já existente nas tags */
 p{
     margin-top: 5px;
 }
+
+/* ids criados */
+
+#buscar-por{
+    max-width: 700px;
+}
+
+/* classes criadas */
+
 .linha{
     width: 100%;
     margin: 15px 0px;
@@ -21,15 +36,21 @@ p{
     border-color: #ddd;
 }
 
-.btPreto{ /* botão Preto */
+.bt-preto{ /* botão Preto */
     color: #fff;
     background-color: #000000;
+    border: 1px solid;
+    border-color: #ddd;
 }
-.btPreto:hover{ /* quando btPreto for selecionado */
+.bt-preto:hover{ /* quando btPreto for selecionado */
     color: #fff;
     background-color: #9A9A9A;
 }
-.btPreto:focus{ /* quando btPreto estiver em foco */
+.bt-preto:focus{ /* quando btPreto estiver em foco */
     color: #fff;
     background-color: #9A9A9A;
+}
+
+.tam-img {
+    width: 170px; height: 170px;
 }

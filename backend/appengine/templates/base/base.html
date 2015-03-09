@@ -22,6 +22,7 @@
 
     <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/css/default.css" rel="stylesheet">
+
     <style>
         .pad8 {
             margin: 8px 15px;
@@ -72,7 +73,7 @@
                     </li>
                     {% if _logged_user and 'ADMIN' in _logged_user.groups %}
                         <li {{ 'class=active' if tab=='ADMIN' }}>
-                            <a href="/admin">{% trans %}Admin{% endtrans %}</a>
+                            <a href="/admin">{% trans %} Admin {% endtrans %}</a>
                         </li>
                     {% endif %}
                 {% endmacro %}
@@ -106,7 +107,8 @@
                     <a class="btn btn-danger" href="#">Registrar-se </a> -->
 
                     <a href="/login?ret_path=%2F"> <button type="button" class="btn btn-danger"> Logar </button></a>
-                    <a href="#"> <button type="button" class="btn btn-danger"> Registrar </button></a>
+                    <a href="/cadastrar"> <button type="button" class="btn btn-danger"> Cadastrar </button></a>
+
                 {% endif %}
 
             </div>
