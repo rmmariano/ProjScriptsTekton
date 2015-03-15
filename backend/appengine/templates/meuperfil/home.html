@@ -1,0 +1,66 @@
+{% extends 'base/base.html' %}
+
+{% block css %}
+    <link rel="stylesheet" href="/static/modulo/css/custom.css"/>
+    <style>
+        #div-menu-meuperfil{
+            max-width: 230px;
+        }
+        #div-container-meuperfil{
+            max-width: 740px;
+        }
+        .row{
+            max-width: 1000px;
+        }
+        .panel-primary { /* está sendo usado dentro dos includes da página */
+            border-color: #ddd;
+        }
+    </style>
+{% endblock %}
+
+{% block js %}
+    <script>
+        var idAtual = "div-editarmeuperfil-meuperfil";
+
+        function mudarCaixaEsquerda(idCliquei){
+            $('#'+idAtual).hide();
+            $('#'+idCliquei).show();
+
+            idAtual = idCliquei;
+        }
+    </script>
+{% endblock %}
+
+{% block body %}
+    <center>
+    <div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-5 col-sm-5 col-md-3" id="div-menu-meuperfil" style="width: 100%;">
+                    <div class="list-group" style="text-align: left; margin: 10px;">
+                        <center>
+                            <div class="media-middle">
+                                <a href="#" class="list-group-item">
+                                    <img data-src="holder.js/80%x150" alt="80%x150" src="/static/img/perfil/griffith.jpg"
+                                         data-holder-rendered="true" style="width: 80%; height: 150px; display: block;">
+                                </a>
+                            </div>
+                            <a href="#" class="list-group-item active"> Griffith </a>
+                        </center>
+                        <a href="#" class="list-group-item" onclick="mudarCaixaEsquerda('div-editarmeuperfil-meuperfil');"> Editar meu Perfil </a>
+                        <a href="#" class="list-group-item" onclick="mudarCaixaEsquerda('div-meusitens-meuperfil');"> Meus Itens </a>
+                        <a href="#" class="list-group-item" onclick="mudarCaixaEsquerda('div-minhastrocas-meuperfil');"> Minhas Trocas </a>
+                        <a href="#" class="list-group-item" onclick="mudarCaixaEsquerda('div-minhasdoacoes-meuperfil');"> Minhas Doações </a>
+                    </div>
+                </div>
+                <div class="col-xs-5 col-sm-5 col-md-9" id="div-container-meuperfil" style="width: 100%;">
+                    {% include 'meuperfil/caixaesquerda/editarmeuperfil.html' %}
+                    {% include 'meuperfil/caixaesquerda/meusitens.html' %}
+                    {% include 'meuperfil/caixaesquerda/minhastrocas.html' %}
+                    {% include 'meuperfil/caixaesquerda/minhasdoacoes.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+    </center>
+{% endblock %}

@@ -8,3 +8,13 @@
     border-top: solid #DDDDDD 1px;
     background-color: #f5f5f5;
 }
+
+/* 'Online Trades' na navbar*/
+.navbar-inverse .navbar-brand {
+  color: #D8D8D8;
+}
+
+/* Os itens da navbar */
+.navbar-inverse .navbar-nav>li>a {
+  color: #D8D8D8;
+}

@@ -59,18 +59,31 @@
                         <a href="/courses">{% trans %} Courses {% endtrans %}</a>
                     </li>
                     -->
-                    <li {{ 'class=active' if tab=='CATEGORIAS' }}>
+                    {% if _logged_user %}
+                        <li {{ 'class=active' if tab=='MEUPERFIL' }}>
+                            <a href="/meuperfil">{% trans %} Meu Perfil {% endtrans %}</a>
+                        </li>
+                        <!--<li {{ 'class=active' if tab=='MINHASTROCAS' }}>
+                            <a href="/minhastrocas">{% trans %} Minhas Trocas {% endtrans %}</a>
+                        </li>
+                        <li {{ 'class=active' if tab=='MINHASDOACOES' }}>
+                            <a href="/minhasdoacoes">{% trans %} Minhas Doações {% endtrans %}</a>
+                        </li> -->
+                    {% endif %}
+
+
+                    <!--<li {{ 'class=active' if tab=='CATEGORIAS' }}>
                         <a href="/categorias">{% trans %} Categorias {% endtrans %}</a>
-                    </li>
+                    </li> -->
                     <li {{ 'class=active' if tab=='INSTRUCOES' }}>
                         <a href="/instrucoes">{% trans %} Instruções {% endtrans %}</a>
                     </li>
                     <li {{ 'class=active' if tab=='CONTATO' }}>
                         <a href="/contato">{% trans %} Contato {% endtrans %}</a>
                     </li>
-                    <li {{ 'class=active' if tab=='SOBRE' }}>
+                    <!-- <li {{ 'class=active' if tab=='SOBRE' }}>
                         <a href="/sobre">{% trans %} Sobre {% endtrans %}</a>
-                    </li>
+                    </li> -->
                     {% if _logged_user and 'ADMIN' in _logged_user.groups %}
                         <li {{ 'class=active' if tab=='ADMIN' }}>
                             <a href="/admin">{% trans %} Admin {% endtrans %}</a>

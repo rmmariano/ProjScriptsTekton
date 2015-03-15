@@ -1,3 +1,5 @@
+/* xs (phones), sm (tablets), md (desktops), and lg (larger desktops) */
+
 /* colocando mais css ao já existente do bootstrap*/
 .row{
     margin-right: 0px;
@@ -54,3 +56,32 @@ p{
 .tam-img {
     width: 170px; height: 170px;
 }
+
+/* Large desktop * /
+@media (min-width: 1201px) {
+
+}
+
+@media (min-width: 980px) and (max-width: 1200px) {
+
+}
+
+/* Portrait tablet to landscape and desktop * /
+@media (min-width: 768px) and (max-width: 979px) {
+    .col-md-9{
+        max-width: 720px;
+    }
+}
+
+/* Landscape phone to portrait tablet * /
+@media (min-width: 481px) and (max-width: 767px) {
+    .col-md-9{
+        max-width: 600px;
+    }
+}
+
+/* Landscape phones and down * /
+@media (max-width: 480px) {
+
+}
+*/

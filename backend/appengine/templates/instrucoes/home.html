@@ -1,5 +1,34 @@
 {% extends 'base/base.html' %}
 
-{% block body %}
+{% block css %}
+    <link rel="stylesheet" href="/static/modulo/css/custom.css"/>
+    <style>
+        p{
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+{% endblock %}
 
+
+{% block body %}
+    <center>
+        <div style="max-width: 530px; margin: 40px 30px;">
+            <h1> Instruções </h1>
+
+            <div class="linha"></div>
+
+            <div style="text-align: left;">
+                <h4>
+                    <p> 1º Cadastre-se  </p>
+                    <p> 2º Cadastre seus itens que não queira mais </p>
+                    <p> 3º Procure por um item que queira e clique em 'quero' </p>
+                    <p> 4º Espere o dono aceitar o pedido e ele escolher um produto seu  </p>
+                    <p> 5º Aceite a troca  </p>
+                    <p> 6º Vá a uma agência dos Correios e mande teu produto  </p>
+                    <p> 7º Espere teu item chegar  </p>
+                </h4>
+            </div>
+        </div>
+    </center>
 {% endblock %}

@@ -1,0 +1,31 @@
+<script>
+    $('#myTab a').click(function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+    })
+</script>
+
+<div class="panel panel-primary" style="margin: 10px;" id="div-meusitens-meuperfil">
+    <div class="panel-heading">
+        <h3 class="panel-title"> Meus Itens </h3>
+    </div>
+    <div class="panel-body">
+        <ul class="nav nav-tabs" role="tablist" id="myTab">
+            <li role="presentation" class="active"><a href="#meusitens" aria-controls="meusitens" role="tab" data-toggle="tab"> Meus Itens </a></li>
+            <li role="presentation"><a href="#cadastraritens" aria-controls="cadastraritens" role="tab" data-toggle="tab"> Cadastrar Itens </a></li>
+            <li role="presentation"><a href="#outros" aria-controls="outros" role="tab" data-toggle="tab"> Outros </a></li>
+        </ul>
+
+        <div class="tab-content" style="margin: 20px 0px;">
+            <div role="tabpanel" class="tab-pane active" id="meusitens">
+                {% include 'meuperfil/caixaesquerda/itens/itensmeusitens.html' %}
+            </div>
+            <div role="tabpanel" class="tab-pane" id="cadastraritens">
+                {% include 'outros/emconstrucao.html' %}
+            </div>
+            <div role="tabpanel" class="tab-pane" id="outros">
+                {% include 'outros/emconstrucao.html' %}
+            </div>
+        </div>
+    </div>
+</div>
