@@ -1,0 +1,56 @@
+<style>
+    span{
+        color: red;
+        font-size: 20px;
+        margin-right: 5px;
+    }
+    label{
+        font-weight: 900;
+    }
+</style>
+<div class="container" style="max-width: 500px; text-align: center;">
+    <div class="row">
+        <div class="col-sm-4 col-md-4">
+            <label class="col-sm-3 control-label"> <span>*</span>Título: </label>
+        </div>
+        <div class="col-sm-8 col-md-8">
+            <input type="text" class="form-control" id="in-titulo" placeholder="Digite o título...">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 col-md-4">
+            <label class="col-sm-3 control-label"> <span>*</span>Categoria: </label>
+        </div>
+        <div class="col-sm-8 col-md-8">
+            <select class="form-control">
+                <option> Livros, Mangás e HQs</option>
+                <option> CDs, DVDs e BLU-RAYs </option>
+                <option> Vestuário </option>
+                <option> Informática </option>
+                <option> Brinquedos e Games </option>
+                <option> Móveis </option>
+                <option> Outros </option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 col-md-4">
+            <label class="col-sm-3 control-label"> <span>*</span>Imagem: </label>
+        </div>
+        <div class="col-sm-8 col-md-8">
+            <center><input type="file" id="exampleInputFile"></center>
+            <p class="help-block">Insira somente arquivos de imagem aqui.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 col-md-4">
+            <label class="col-sm-3 control-label"> <span>*</span>Descrição: </label>
+        </div>
+        <div class="col-sm-8 col-md-8">
+            <textarea class="form-control" rows="5" id="ta-descricao" placeholder="Digite a descrição..."></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <button type="submit" class="btn bt-preto" style="margin-top: 10px;"> Adicionar </button>
+    </div>
+</div>
