@@ -1,0 +1,12 @@
+{% extends 'base/base.html' %}
+
+{% block body %}
+    <div class="container text-center">
+        {% if _logged_user %}
+            aaa
+
+        {% else %}
+            <meta http-equiv="refresh" content="0;url=/login?ret_path=%2F">
+        {% endif %}
+    </div>
+{% endblock %}

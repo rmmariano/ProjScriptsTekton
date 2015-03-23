@@ -1,17 +1,14 @@
 <style>
-    span{
+    .spanObrigatorio{
         color: red;
         font-size: 20px;
         margin-right: 5px;
-    }
-    label{
-        font-weight: 900;
     }
 </style>
 <div class="container" style="max-width: 500px; text-align: center;">
     <div class="row">
         <div class="col-sm-4 col-md-4">
-            <label class="col-sm-3 control-label"> <span>*</span>Título: </label>
+            <label class="col-sm-3 control-label"> <span class="spanObrigatorio">*</span>Título: </label>
         </div>
         <div class="col-sm-8 col-md-8">
             <input type="text" class="form-control" id="in-titulo" placeholder="Digite o título...">
@@ -19,7 +16,7 @@
     </div>
     <div class="row">
         <div class="col-sm-4 col-md-4">
-            <label class="col-sm-3 control-label"> <span>*</span>Categoria: </label>
+            <label class="col-sm-3 control-label"> <span class="spanObrigatorio">*</span>Categoria: </label>
         </div>
         <div class="col-sm-8 col-md-8">
             <select class="form-control">
@@ -35,7 +32,7 @@
     </div>
     <div class="row">
         <div class="col-sm-4 col-md-4">
-            <label class="col-sm-3 control-label"> <span>*</span>Imagem: </label>
+            <label class="col-sm-3 control-label"> <span class="spanObrigatorio">*</span>Imagem: </label>
         </div>
         <div class="col-sm-8 col-md-8">
             <center><input type="file" id="exampleInputFile"></center>
@@ -44,7 +41,7 @@
     </div>
     <div class="row">
         <div class="col-sm-4 col-md-4">
-            <label class="col-sm-3 control-label"> <span>*</span>Descrição: </label>
+            <label class="col-sm-3 control-label"> <span class="spanObrigatorio">*</span>Descrição: </label>
         </div>
         <div class="col-sm-8 col-md-8">
             <textarea class="form-control" rows="5" id="ta-descricao" placeholder="Digite a descrição..."></textarea>
