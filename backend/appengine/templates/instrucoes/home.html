@@ -7,9 +7,16 @@
             margin-top: 20px;
             margin-bottom: 20px;
         }
+        .caixaInstrucao {
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+            border-left-width: 10px;
+            border-radius: 10px;
+            border-left-color: #000000;
+        }
     </style>
 {% endblock %}
-
 
 {% block body %}
     <center>
@@ -18,15 +25,15 @@
 
             <div class="linha"></div>
 
-            <div style="text-align: left;">
-                <h4>
-                    <p> 1º Cadastre-se  </p>
-                    <p> 2º Cadastre seus itens que não queira mais </p>
-                    <p> 3º Procure por um item que queira e clique em 'quero' </p>
-                    <p> 4º Espere o dono aceitar o pedido e ele escolher um produto seu  </p>
-                    <p> 5º Aceite a troca  </p>
-                    <p> 6º Vá a uma agência dos Correios e mande teu produto  </p>
-                    <p> 7º Espere teu item chegar  </p>
+            <div class="caixaInstrucao" style="text-align: left;">
+                <h4 style="font-weight: 700;">
+                    <p> <span class="spanObrigatorio">1º</span> Cadastre-se  </p>
+                    <p> <span class="spanObrigatorio">2º</span> Cadastre seus itens que não queira mais </p>
+                    <p> <span class="spanObrigatorio">3º</span> Procure por um item que queira e clique em 'quero' </p>
+                    <p> <span class="spanObrigatorio">4º</span> Espere o dono aceitar o pedido e ele escolher um produto seu  </p>
+                    <p> <span class="spanObrigatorio">5º</span> Aceite a troca  </p>
+                    <p> <span class="spanObrigatorio">6º</span> Vá a uma agência dos Correios e mande teu produto ou encontre-se com a pessoa </p>
+                    <p> <span class="spanObrigatorio">7º</span> Espere teu item chegar, caso o mande por Correios  </p>
                 </h4>
             </div>
         </div>

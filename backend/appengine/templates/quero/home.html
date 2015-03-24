@@ -3,8 +3,7 @@
 {% block body %}
     <div class="container text-center">
         {% if _logged_user %}
-            aaa
-
+            {% include 'outros/emconstrucao.html' %}
         {% else %}
             <meta http-equiv="refresh" content="0;url=/login?ret_path=%2F">
         {% endif %}
