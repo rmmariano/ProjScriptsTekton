@@ -15,7 +15,18 @@
             <form class="form-horizontal">
                 {% include 'cadastrar/formcadastro.html' %}
 
-                <button type="submit" class="btn bt-preto" style="margin-top: 5px;"> Cadastrar </button>
+                <p style="margin: 15px 25px;">
+                    O site <strong>NÃO</strong> se responsabiliza pelas transações, sejam elas de qualquer tipo. A responsabilidade pelas informações fornecidas neste cadastro e pelas transações feitas são de total responsabilidade das pessoas envolvidas.
+                </p>
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="">
+                        Eu aceito os termos descritos acima.
+                    </label>
+                </div>
+
+                <button type="submit" class="btn bt-preto" style="margin-top: 15px;"> Cadastrar </button>
             </form>
         </div> <!-- id-cadastro -->
     </center>
