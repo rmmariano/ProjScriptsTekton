@@ -10,4 +10,4 @@ __author__ = 'Rodrigo'
 @login_required
 @no_csrf
 def index():
-    return TemplateResponse(template_path='/meuperfil/caixaesquerda/editarmeuperfil.html')
+    return TemplateResponse(template_path='/meuperfil/caixaesquerda/minhastrocas.html')

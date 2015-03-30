@@ -1,3 +1,7 @@
+{% extends 'meuperfil/home.html' %}
+
+{% block meusitens %}
+
 <script>
     $('#myTab a').click(function (e) {
         e.preventDefault()
@@ -5,7 +9,7 @@
     })
 </script>
 
-<div class="panel panel-primary" style="margin: 10px; display: none;" id="div-meusitens-meuperfil">
+<div class="panel panel-primary" style="margin: 10px;" id="div-meusitens-meuperfil">
     <div class="panel-heading">
         <h3 class="panel-title"> Meus Itens </h3>
     </div>
@@ -29,3 +33,5 @@
         </div>
     </div>
 </div>
+
+{% endblock %}

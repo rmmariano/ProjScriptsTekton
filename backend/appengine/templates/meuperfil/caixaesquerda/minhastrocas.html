@@ -1,4 +1,8 @@
-<div class="panel panel-primary" style="margin: 10px; display: none;" id="div-minhastrocas-meuperfil">
+{% extends 'meuperfil/home.html' %}
+
+{% block minhastrocas %}
+
+<div class="panel panel-primary" style="margin: 10px;" id="div-minhastrocas-meuperfil">
     <div class="panel-heading">
         <h3 class="panel-title"> Minhas Trocas </h3>
     </div>
@@ -6,3 +10,5 @@
         <h2> Nenhuma troca feita ainda!!! </h2>
     </div>
 </div>
+
+{% endblock %}

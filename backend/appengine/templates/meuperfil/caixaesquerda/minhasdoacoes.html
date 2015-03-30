@@ -1,4 +1,8 @@
-<div class="panel panel-primary" style="margin: 10px; display: none;" id="div-minhasdoacoes-meuperfil">
+{% extends 'meuperfil/home.html' %}
+
+{% block minhasdoacoes %}
+
+<div class="panel panel-primary" style="margin: 10px;" id="div-minhasdoacoes-meuperfil">
     <div class="panel-heading">
         <h3 class="panel-title"> Minhas Doações </h3>
     </div>
@@ -6,3 +10,5 @@
         <h2> Nenhuma doação feita ainda!!! </h2>
     </div>
 </div>
+
+{% endblock %}
