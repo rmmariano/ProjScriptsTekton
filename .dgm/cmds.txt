@@ -1,0 +1,97 @@
+CONFIGURAÇÕES INICIAIS DO GIT/GITHUB
+
+-------------------------------------------------------------
+1º INSTALAR O GIT
+
+(se Linux será via shell, se Windows/Mac será um executável que será baixado)
+Este tutorial será feito no Windows, utilizando o GitBash (mas existem outros aplicativos)
+
+Após o Git instalado:
+
+-------------------------------------------------------------
+2º CONFIGURAR REPOSITÓRIO PELA PRIMEIRA VEZ
+
+No GitBash:
+
+- vá para RAIZ (não o / , é a pasta do usuário)
+OBS: normalmente quando se abre o GitBash pela primeira vez, ele vai para lá direto.
+
+- para criar chave pública:
+ssh-keygen -t rsa -C "email aqui"
+(de preferência deixar padrão id_rsa)
+
+- verifique se funcionou entrando na pasta do ssh
+~/.ssh
+
+- dentro dela, faça um teste de conexão com o github
+ssh -T git@github.com
+
+- se tudo der certo até aqui, crie uma pasta para seu projeto e entre nela
+
+- para iniciar um projeto git utilize:
+git init
+
+- para verificar o status atual do seu repositório LOCAL, utilize:
+git status
+
+- configure seu usuário e email, para ser identificado a cada commit dado:
+git config --global user.name "seu nome"
+git config --global user.email "seu email"
+
+- para add os arquivos no repositório LOCAL(área de espera), utilize:
+git add . 
+(. quer dizer TUDO, se quiser add um arquivo em específico, coloque seu nome e extensão)
+
+- para dar um commit utilize:
+git commit -m "meu comentário do meu commit/add"
+
+OBS: sempre que utilizar um git add, utilize um git commit
+
+- para visualizar os logs do seu repositório (ver que commitou, quando, hora, e o comentário do commit) utilize:
+git log
+
+-------------------------------------------------------------
+3º GITHUB (REPOSITÓRIO NA NUVEM)
+
+- Crie sua conta, depois crie um novo repositório, procure a chave de acesso àquele repositório(HTTP ou SSH), precisaremos dela para o próximo passo.
+
+- No Git Bash, digite:
+git remote add origin git@github:... ... ... .git
+(o exemplo acima é utilizando uma chave SSH)
+
+- Para dar o push (empurrar o que tem no repositório local para a nuvem):
+git push -u origin master
+(às vezes pode demorar por conta da conexão com a internet)
+
+-------------------------------------------------------------
+4º COMANDOS COMUNS APÓS CONFIGURAÇÕES
+git status
+git log
+git add . 
+git commit -m "descrição commit"
+git push
+
+#Obs: master é o nome da branch principal
+
+#cria uma nova branch, onde <nome-branch> é o nome da branch, exemplo refs#1
+$ git branch <nome-branch>
+
+#troca de branch, onde <nome-branch> é o nome da branch, exemplo: master
+$ git checkout <nome-branch>
+
+#para fazer o merge, primeiro vá ao master
+$ git checkout master
+#depois use o merge na branch que você quer
+$ git merge refs#1
+#isso fará com que a master aponte para onde refs#1 aponta (atualizando a master com as atualizações de refs#1)
+
+#como você já fez o merge da branch para a master, você não precisa mais da branch antiga (já que a master aponta para o mesmo local que a branch), para excluir a branch antiga usa-se:
+$ git branch -d refs#1
+
+
+
+
+
+
+
+
