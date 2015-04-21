@@ -1,3 +1,5 @@
+MINI TUTORIAL (para eu não me perder kkkk)
+
 CONFIGURAÇÕES INICIAIS DO GIT/GITHUB
 
 -------------------------------------------------------------
@@ -88,10 +90,17 @@ $ git merge refs#1
 #como você já fez o merge da branch para a master, você não precisa mais da branch antiga (já que a master aponta para o mesmo local que a branch), para excluir a branch antiga usa-se:
 $ git branch -d refs#1
 
+$ git push origin <branch>
 
 
 
 
+
+-----------------------------------------------------------
+deploy linha comando:
+
+cd backend\appengine\
+appcfg.py update . --oauth2
 
 
 
