@@ -5,6 +5,11 @@ from config.template_middleware import TemplateResponse
 from gaecookie.decorator import no_csrf
 from gaepermission.decorator import login_required
 from operator import itemgetter
+from tekton import router
+#from backend.appengine.models.db import Item
+from google.appengine.ext import ndb
+from gaegraph.model import Node
+from tekton.gae.middleware.redirect import RedirectResponse
 
 __author__ = 'Rodrigo'
 
@@ -17,11 +22,19 @@ categorias = dict(sorted(categorias.items(), key=itemgetter(1))) # itemgetter(1)
 @login_required
 @no_csrf
 def index():
-    contexto = {'categorias':categorias}
+    contexto = {'categorias':categorias,'salvar':router.to_path(salvar)}
     return TemplateResponse(contexto,template_path='/meuperfil/caixaesquerda/cadastraritens/cadastraritens.html')
 
 @login_required
 @no_csrf
-def salvar(**kwargs):
+def salvar(**itens):
+    novo_item = Item(titulo = itens['in-titulo'], #categoria = itens['select'],
+                     imagem = itens['in-imagem'], descricao = itens['ta-descricao'])
+    novo_item.put() #eh aqui que salva no DB
+    return RedirectResponse('/meuperfil/caixaesquerda/cadastraritens/cadastraritens')
 
-    return ''
+class Item(Node):
+    titulo = ndb.StringProperty(required=True)
+    #categoria = ndb.StringProperty(required=True)
+    imagem = ndb.StringProperty(required=True)
+    descricao = ndb.StringProperty(required=True)

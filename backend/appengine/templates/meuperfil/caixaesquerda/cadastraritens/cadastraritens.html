@@ -2,7 +2,8 @@
 
 {% block cadastraritens %}
 <div id="div-cadastraritens" class="container" style="max-width: 500px; text-align: center;">
-    <form action="/meuperfil/caixaesquerda/cadastraritens/cadastraritens/salvar" method="get">
+    <!-- /meuperfil/caixaesquerda/cadastraritens/cadastraritens/salvar -->
+    <form action="{{ salvar }}" method="get">
         <div class="row">
             <div class="col-sm-4 col-md-4">
                 <label class="col-sm-3 control-label"> <span class="spanObrigatorio">*</span>Título: </label>
@@ -28,7 +29,7 @@
                 <label class="col-sm-3 control-label"> <span class="spanObrigatorio">*</span>Imagem: </label>
             </div>
             <div class="col-sm-8 col-md-8">
-                <center><input type="file" name="in-inputFile"></center>
+                <center><input type="file" name="in-imagem"></center>
                 <p class="help-block">Insira somente arquivos de imagem aqui.</p>
             </div>
         </div>
