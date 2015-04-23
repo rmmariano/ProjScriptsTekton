@@ -12,6 +12,7 @@ categorias = {'op-lvr-mng-hq':'Livros, Mangás e HQs','op-cd-dvd-bry':'CDs, DVDs
              'op-brq-gms':'Brinquedos e Games','op-mvs':'Móveis','op-outros':'Outros'}
 
 categorias = dict(sorted(categorias.items(), key=itemgetter(1))) # itemgetter(1) para ordenar pelo valor, se colocar 0, ordena pela chave
+            #converte para dict novamente, pois sorted retorna um list com tuplas dentro
 
 @login_required
 @no_csrf
@@ -24,4 +25,3 @@ def index():
 def salvar(**kwargs):
 
     return ''
-
