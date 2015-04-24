@@ -3,7 +3,7 @@
 {% block cadastraritens %}
 <div id="div-cadastraritens" class="container" style="max-width: 500px; text-align: center;">
     <!-- /meuperfil/caixaesquerda/cadastraritens/cadastraritens/salvar -->
-    <form action="{{ salvar }}" method="get">
+    <!--form action="" method="get">
         <div class="row">
             <div class="col-sm-4 col-md-4">
                 <label class="col-sm-3 control-label"> <span class="spanObrigatorio">*</span>Título: </label>
@@ -18,9 +18,7 @@
             </div>
             <div class="col-sm-8 col-md-8">
                 <select name="select" class="form-control">
-                    {% for key, value in categorias.iteritems() %}
-                        <option value="{{ key }}"> {{ value }} </option>
-                    {% endfor %}
+
                 </select>
             </div>
         </div>
@@ -44,6 +42,38 @@
         <div class="row">
             <button type="submit" class="btn bt-preto" style="margin-top: 10px;"> Adicionar </button>
         </div>
+    </form-->
+
+    <form action="{{ salvar }}" method="post">
+        {{ csrf_input() }}
+        {{ form_input( 'Título', 'titulo', '', '' ) }}
+        <center>
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <strong> Categoria </strong>
+                <select name="select" class="form-control">
+                    {% for key, value in categorias.iteritems() %}
+                        <option value="{{ key }}"> {{ value }} </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <strong> Imagem </strong>
+                <center><input type="file" name="imagem"></center>
+                <p class="help-block">Insira somente arquivos de imagem aqui.</p>
+            </div>
+        </div>
+        </center>
+
+        {{ form_input( 'Descrição', 'descricao', '', '' ) }}
+
+        <div class="row">
+            <button type="submit" class="btn bt-preto" style="margin-top: 10px;"> Adicionar </button>
+        </div>
     </form>
+
+
 </div>
 {% endblock %}

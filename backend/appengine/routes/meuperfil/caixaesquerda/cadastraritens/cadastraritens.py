@@ -28,8 +28,8 @@ def index():
 @login_required
 @no_csrf
 def salvar(**itens):
-    novo_item = Item(titulo = itens['in-titulo'], #categoria = itens['select'],
-                     imagem = itens['in-imagem'], descricao = itens['ta-descricao'])
+    novo_item = Item(titulo = itens['titulo'], #categoria = itens['select'],
+                     imagem = itens['imagem'], descricao = itens['descricao'])
     novo_item.put() #eh aqui que salva no DB
     return RedirectResponse('/meuperfil/caixaesquerda/cadastraritens/cadastraritens')
 
