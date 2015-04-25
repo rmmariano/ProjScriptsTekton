@@ -4,6 +4,7 @@ from config.template_middleware import TemplateResponse
 from gaecookie.decorator import no_csrf
 from gaepermission.decorator import login_required
 from tekton import router
+
 from gaeforms.ndb.form import ModelForm
 from gaegraph.model import Node
 from google.appengine.ext import ndb
@@ -19,7 +20,7 @@ categorias = dict(sorted(categorias.items(), key=itemgetter(1))) # itemgetter(1)
             #converte para dict novamente, pois sorted retorna um list com tuplas dentro
 '''
 
-__ctx = {'salvar':'','erros':'','items':''}
+__ctx = {'salvar':'','erros':'','items':'','sucesso':0}
 
 @login_required
 @no_csrf
@@ -39,6 +40,7 @@ def salvar(**itens):
     else:
         item = item_form.fill_model()
         item.put()
+        __ctx['sucesso'] = 1
     return TemplateResponse(__ctx,'/meuperfil/caixaesquerda/cadastraritens/cadastraritens.html')
 
 

@@ -47,11 +47,17 @@
                 <div class="thumbnail">
                     <img data-src="holder.js/100%x200" alt="100%x200" src="" data-holder-rendered="true" style="height: 200px; width: 100%; display: block;">
                     <div class="caption">
+                        <p id="p-key">{{ item.key.id() }}</p>
                         <h3> {{ item.titulo }} </h3>
                         <p> {{ item.descricao }} </p>
-                        <p>
-                            <a href="#" class="btn btn-primary" role="button"> Editar </a>
-                        </p>
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6">
+                                <a href="{{ path_editar }}?id={{ item.key.id() }}" class="btn btn-info" role="button"> Editar </a>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <a href="{{ path_excluir }}?id={{ item.key.id() }}" class="btn btn-danger" role="button"> Excluir </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
