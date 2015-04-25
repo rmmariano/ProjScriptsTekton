@@ -46,7 +46,7 @@
 
     <form action="{{ salvar }}" method="post">
         {{ csrf_input() }}
-        {{ form_input( 'Título', 'titulo', '', '' ) }}
+        {{ form_input( 'Título', 'titulo', item.titulo, errors.titulo ) }}
         <center>
         <div class="row">
             <div class="col-sm-12 col-md-12">
@@ -66,9 +66,7 @@
             </div>
         </div>
         </center>
-
-        {{ form_input( 'Descrição', 'descricao', '', '' ) }}
-
+        {{ form_input( 'Descrição', 'descricao', item.descricao, errors.descricao ) }}
         <div class="row">
             <button type="submit" class="btn bt-preto" style="margin-top: 10px;"> Adicionar </button>
         </div>
