@@ -11,3 +11,4 @@ __author__ = 'Rodrigo'
 @no_csrf
 def index():
     return TemplateResponse(template_path='/meuperfil/caixaesquerda/itens/itensmeusitens.html')
+
