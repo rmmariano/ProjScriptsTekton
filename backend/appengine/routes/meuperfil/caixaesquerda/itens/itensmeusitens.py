@@ -2,6 +2,7 @@
 
 from __future__ import absolute_import, unicode_literals
 from config.template_middleware import TemplateResponse
+from gaegraph.model import Arc
 from gaecookie.decorator import no_csrf
 from gaepermission.decorator import login_required
 from tekton.gae.middleware.redirect import RedirectResponse
@@ -23,7 +24,7 @@ def index():
     query = Item.query().order(Item.titulo)
     item_lista = query.fetch()
     form = ItemForm()
-    item_lista = [form.fill_with_model(item) for item in item_lista]
+    item_lista = [form.fill_with_model(item) for item in item_lista] #transforma a classe em dicionário para poder adicionar valores dinamicamente
     p_editar_form = router.to_path(editar_form)
     p_excluir = router.to_path(excluir)
     for item in item_lista:
@@ -76,6 +77,10 @@ def excluir(_resp,id):
 class Item(Node):
     titulo = ndb.StringProperty(required=True)
     descricao = ndb.StringProperty(required=True)
+
+class TemArco(Arc):
+    origin = ndb.KeyProperty(required=True)
+    destination = ndb.KeyProperty(Item,required=True)
 
 class ItemForm(ModelForm):
     _model_class = Item

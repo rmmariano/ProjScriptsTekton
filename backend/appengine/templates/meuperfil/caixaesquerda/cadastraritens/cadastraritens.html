@@ -4,14 +4,7 @@
 <div id="div-cadastraritens" class="container" style="max-width: 500px; text-align: center;">
     <!-- /meuperfil/caixaesquerda/cadastraritens/cadastraritens/salvar -->
     <!--form action="" method="get">
-        <div class="row">
-            <div class="col-sm-4 col-md-4">
-                <label class="col-sm-3 control-label"> <span class="spanObrigatorio">*</span>Título: </label>
-            </div>
-            <div class="col-sm-8 col-md-8">
-                <input type="text" class="form-control" name="in-titulo" placeholder="Digite o título...">
-            </div>
-        </div>
+
         <div class="row">
             <div class="col-sm-4 col-md-4">
                 <label class="col-sm-3 control-label"> <span class="spanObrigatorio">*</span>Categoria: </label>
@@ -31,17 +24,6 @@
                 <p class="help-block">Insira somente arquivos de imagem aqui.</p>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-4 col-md-4">
-                <label class="col-sm-3 control-label"> <span class="spanObrigatorio">*</span>Descrição: </label>
-            </div>
-            <div class="col-sm-8 col-md-8">
-                <textarea class="form-control" rows="5" name="ta-descricao" placeholder="Digite a descrição..."></textarea>
-            </div>
-        </div>
-        <div class="row">
-            <button type="submit" class="btn bt-preto" style="margin-top: 10px;"> Adicionar </button>
-        </div>
     </form-->
     {% if sucesso %}
         <div class="alert alert-success alert-dismissible fade in" role="alert">
@@ -52,12 +34,25 @@
         </div>
     {% endif %}
     <form action="{{ salvar }}" method="post" role="form">
-        {{ csrf_input() }}
-        {{ form_input( 'Título', 'titulo', items.titulo, erros.titulo ) }}
-        {{ form_input( 'Descrição', 'descricao', items.descricao, erros.descricao ) }}
         <div class="row">
-            <button type="submit" class="btn bt-preto" style="margin-top: 10px;"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Adicionar </button>
+            {{ csrf_input() }}
+            {{ form_input( 'Título', 'titulo', items.titulo, erros.titulo ) }}
+
+            <div class="col-sm-4 col-md-4" style="width: 100%;">
+                <center><label class="col-sm-3 control-label" style="width: 100%;"> Categoria: </label></center>
+            </div>
+            <select name="categoria_selecionada" class="form-control" style="margin-bottom: 10px;">
+            {% for cat in categorias %}
+                <option value="{{ cat.key.id() }}">{{ cat.categoria }}</option>
+            {% endfor %}
+            </select>
+
+            {{ form_input( 'Descrição', 'descricao', items.descricao, erros.descricao ) }}
+            <div class="row">
+                <button type="submit" class="btn bt-preto" style="margin-top: 10px;"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Adicionar </button>
+            </div>
         </div>
+
     </form>
 </div>
 {% endblock %}

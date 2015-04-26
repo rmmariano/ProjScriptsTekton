@@ -102,5 +102,6 @@ deploy linha comando:
 cd backend\appengine\
 appcfg.py update . --oauth2
 
+(obs: fazer deploy sempre na branch master)
 
 
