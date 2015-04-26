@@ -12,24 +12,56 @@ from tekton import router
 
 __author__ = 'Rodrigo'
 
-__ctx = {'itens':'','path_editar':'','path_excluir':''}
+__ctx = {'items':'','item':'','erros':'','sucesso':0,
+         'path_editar':'','path_editar_form':'',
+         'path_excluir':''}
 
 @login_required
 @no_csrf
 def index():
     query = Item.query().order(Item.titulo)
     __ctx['itens'] = query.fetch()
-    __ctx['path_editar'] = router.to_path(editar)
+    __ctx['path_editar_form'] = router.to_path(editar_form)
     __ctx['path_excluir'] = router.to_path(excluir)
     return TemplateResponse(__ctx)
 
 @login_required
 @no_csrf
-def editar(_resp,**itens):
-    itens['id'] = int(itens['id'])
+def editar(_resp,**item):
+    item['id'] = int(item['id'])
 
-    #_resp.write('editar , '+str(itens))
-    return TemplateResponse(__ctx,'/meuperfil/caixaesquerda/itens/itensmeusitens.html')
+    _resp.write(item)
+
+    '''
+    item_form = ItemForm(**itens)
+    erros = item_form.validate()
+
+    __ctx['path_editar'] = router.to_path(editar)
+    __ctx['path_excluir'] = router.to_path(excluir)
+
+    if erros:
+        __ctx['erros'] = erros
+        __ctx['items'] = item_form
+        __ctx['sucesso'] = 0
+    else:
+        item = item_form.fill_model()
+        item.put()
+        __ctx['sucesso'] = 1
+    '''
+    '''
+    __ctx['sucesso'] = 1
+    __ctx['item'] = item
+    __ctx['path_editar'] = router.to_path(editar)
+    return TemplateResponse(__ctx,'/meuperfil/caixaesquerda/itens/editar_form.html')
+    '''
+
+@login_required
+@no_csrf
+def editar_form(id):
+    item = Item.get_by_id(int(id))
+    __ctx['item'] = item
+    __ctx['path_editar'] = router.to_path(editar)
+    return TemplateResponse(__ctx,'/meuperfil/caixaesquerda/itens/editar_form.html')
 
 '''
     item_form = ItemForm(**itens)
