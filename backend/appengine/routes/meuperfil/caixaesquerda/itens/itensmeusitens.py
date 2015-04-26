@@ -4,6 +4,7 @@ from __future__ import absolute_import, unicode_literals
 from config.template_middleware import TemplateResponse
 from gaecookie.decorator import no_csrf
 from gaepermission.decorator import login_required
+from tekton.gae.middleware.redirect import RedirectResponse
 
 from gaeforms.ndb.form import ModelForm
 from gaegraph.model import Node
@@ -12,7 +13,7 @@ from tekton import router
 
 __author__ = 'Rodrigo'
 
-__ctx = {'items':'','item':'','erros':'','sucesso':0,
+__ctx = {'items':'','item':'','erros':'','sucesso':-1,
          'path_editar':'','path_editar_form':'',
          'path_excluir':''}
 
@@ -20,47 +21,55 @@ __ctx = {'items':'','item':'','erros':'','sucesso':0,
 @no_csrf
 def index():
     query = Item.query().order(Item.titulo)
-    __ctx['itens'] = query.fetch()
-    __ctx['path_editar_form'] = router.to_path(editar_form)
-    __ctx['path_excluir'] = router.to_path(excluir)
+    item_lista = query.fetch()
+
+    form = ItemForm()
+
+    item_lista = [form.fill_with_model(item) for item in item_lista]
+
+    p_editar_form = router.to_path(editar_form)
+    p_excluir = router.to_path(excluir)
+    for item in item_lista:
+        item['path_editar_form'] = '%s/%s'%(p_editar_form,item['id'])
+        item['path_excluir'] = '%s/%s'%(p_excluir,item['id'])
+
+    __ctx['itens'] = item_lista
+    __ctx['erros'] = ''
+    __ctx['sucesso'] = -1
+
     return TemplateResponse(__ctx)
 
 @login_required
 @no_csrf
-def editar(_resp,**item):
-    item['id'] = int(item['id'])
-
-    _resp.write(item)
-
-    '''
+def editar(id,**itens):
+    id = int(id)
+    item = Item.get_by_id(id)
     item_form = ItemForm(**itens)
     erros = item_form.validate()
 
-    __ctx['path_editar'] = router.to_path(editar)
-    __ctx['path_excluir'] = router.to_path(excluir)
-
     if erros:
         __ctx['erros'] = erros
-        __ctx['items'] = item_form
+        __ctx['path_editar'] = router.to_path(editar,id)
         __ctx['sucesso'] = 0
+        __ctx['item'] = item_form
+        return TemplateResponse(__ctx,'/meuperfil/caixaesquerda/itens/editar_form.html')
     else:
-        item = item_form.fill_model()
+        item_form.fill_model(item)
         item.put()
         __ctx['sucesso'] = 1
-    '''
-    '''
-    __ctx['sucesso'] = 1
-    __ctx['item'] = item
-    __ctx['path_editar'] = router.to_path(editar)
-    return TemplateResponse(__ctx,'/meuperfil/caixaesquerda/itens/editar_form.html')
-    '''
+
+        return RedirectResponse(router.to_path(index))
+
 
 @login_required
 @no_csrf
 def editar_form(id):
-    item = Item.get_by_id(int(id))
+    id = int(id)
+    item = Item.get_by_id(id)
+    item_form = ItemForm()
+    item_form.fill_with_model(item)
     __ctx['item'] = item
-    __ctx['path_editar'] = router.to_path(editar)
+    __ctx['path_editar'] = router.to_path(editar,id)
     return TemplateResponse(__ctx,'/meuperfil/caixaesquerda/itens/editar_form.html')
 
 '''
