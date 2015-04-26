@@ -1,68 +1,93 @@
 {% extends 'meuperfil/caixaesquerda/meusitens.html' %}
 
 {% block itensmeusitens %}
+    <style>
+        .form-group{
+            margin-bottom: 15px;
+        }
+    </style>
 <div id="div-itensmeusitens">
-    <!--div class="row">
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                <img data-src="holder.js/100%x200" alt="100%x200" src="/static/img/itens/livros/assassinscreedrenascenca.jpg" data-holder-rendered="true" style="height: 200px; width: 100%; display: block;">
-                <div class="caption">
-                    <h3> Assassin's Creed: Renascença </h3>
-                    <p> É um estória de fantasia e ficção, escrito por Oliver Bowden, e baseado no universo dos jogos de Assassin's Creed. </p>
-                    <p>
-                        <a href="#" class="btn btn-primary" role="button"> Editar </a>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                <img data-src="holder.js/100%x200" alt="100%x200" src="/static/img/itens/livros/Programao-use-a-cabeca.jpg" data-holder-rendered="true" style="height: 200px; width: 100%; display: block;">
-                <div class="caption">
-                    <h3> Use a Cabeça! Programação </h3>
-                    <p> Apresenta os conceitos básicos de escrita de programas de computador utilizando a linguagem Python. </p>
-                    <p>
-                        <a href="#" class="btn btn-primary" role="button"> Editar </a>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                <img data-src="holder.js/100%x200" alt="100%x200" src="/static/img/itens/livros/Programao-use-a-cabeca.jpg" data-holder-rendered="true" style="height: 200px; width: 100%; display: block;">
-                <div class="caption">
-                    <h3> Use a Cabeça! Programação </h3>
-                    <p> Apresenta os conceitos básicos de escrita de programas de computador utilizando a linguagem Python. </p>
-                    <p>
-                        <a href="#" class="btn btn-primary" role="button"> Editar </a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div-->
-
     <div class="row">
         {% for item in itens %}
-            <div class="col-sm-6 col-md-4">
+            <div class="col-sm-4 col-md-4">
                 <div class="thumbnail">
                     <img data-src="holder.js/100%x200" alt="100%x200" src="" data-holder-rendered="true" style="height: 200px; width: 100%; display: block;">
                     <div class="caption">
-                        <p id="p-key">{{ item.key.id() }}</p>
-                        <h3> {{ item.titulo }} </h3>
-                        <p> {{ item.descricao }} </p>
+                        <h4> {{ item.titulo }} </h4>
+                        <p>
+                            {% if item.descricao|length >= 40 %}
+                                {{ item.descricao[0:40] }}...
+                            {% else %}
+                                {{ item.descricao }}
+                            {% endif %}
+                        </p>
                         <div class="row">
                             <div class="col-sm-6 col-md-6">
-                                <a href="{{ path_editar }}?id={{ item.key.id() }}" class="btn btn-info" role="button"> Editar </a>
+                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#editar_{{ item.key.id() }}">
+                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar
+                                </button>
                             </div>
                             <div class="col-sm-6 col-md-6">
-                                <a href="{{ path_excluir }}?id={{ item.key.id() }}" class="btn btn-danger" role="button"> Excluir </a>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#excluir_{{ item.key.id() }}">
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Excluir
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="editar_{{ item.key.id() }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="exampleModalLabel"> Editar </h4>
+                        </div>
+                        <form action="{{ path_editar }}" method="post">
+                            <div class="modal-body">
+                                <input type="hidden" class="form-control" name="id" value="{{ item.key.id() }}">
+                                <div class="form-group">
+                                    <label for="recipient-name" class="control-label"> Título: </label>
+                                    <input type="text" class="form-control" name="titulo" value="{{ item.titulo }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="message-text" class="control-label"> Descrição: </label>
+                                    <textarea class="form-control" name="descricao">{{ item.descricao }}</textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Salvar </button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Fechar </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="excluir_{{ item.key.id() }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="exampleModalLabel"> Excluir </h4>
+                        </div>
+                        <form action="{{ path_excluir }}" method="post">
+                            <div class="modal-body">
+                                <input type="hidden" class="form-control" name="id" value="{{ item.key.id() }}">
+                                <div class="form-group">
+                                    <h3> Deseja realmente excluir o item? </h3>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <center>
+                                    <button type="submit" class="btn btn-primary"> <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Sim </button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Não </button>
+                                </center>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         {% endfor %}
     </div>
-
 </div>
 {% endblock %}

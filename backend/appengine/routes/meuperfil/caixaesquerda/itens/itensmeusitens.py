@@ -10,7 +10,6 @@ from gaegraph.model import Node
 from google.appengine.ext import ndb
 from tekton import router
 
-
 __author__ = 'Rodrigo'
 
 __ctx = {'itens':'','path_editar':'','path_excluir':''}
@@ -27,14 +26,32 @@ def index():
 @login_required
 @no_csrf
 def editar(_resp,**itens):
+    itens['id'] = int(itens['id'])
 
-    _resp.write('editar , '+str(itens))
+    #_resp.write('editar , '+str(itens))
+    return TemplateResponse(__ctx,'/meuperfil/caixaesquerda/itens/itensmeusitens.html')
+
+'''
+    item_form = ItemForm(**itens)
+    erros = item_form.validate()
+    __ctx['salvar'] = router.to_path(salvar)
+    if erros:
+        __ctx['erros'] = erros
+        __ctx['items'] = item_form
+    else:
+        item = item_form.fill_model()
+        item.put()
+        __ctx['sucesso'] = 1
+    return TemplateResponse(__ctx,'/meuperfil/caixaesquerda/cadastraritens/cadastraritens.html')
+'''
+
 
 @login_required
 @no_csrf
 def excluir(_resp,**itens):
 
     _resp.write('excluir , '+str(itens))
+    return TemplateResponse(__ctx,'/meuperfil/caixaesquerda/itens/itensmeusitens.html')
 
 
 
