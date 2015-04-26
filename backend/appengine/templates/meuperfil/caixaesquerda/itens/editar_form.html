@@ -4,14 +4,6 @@
 
 <div id="div-editarform" class="container" style="max-width: 500px; text-align: center;">
     <div class="row">
-        {% if sucesso == 1 %}
-        <div class="alert alert-success alert-dismissible fade in" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <strong> Editado com sucesso </strong>
-        </div>
-        {% endif %}
         <form action="{{ path_editar }}" method="post" role="form">
             {{ csrf_input() }}
             {{ form_input( 'Título', 'titulo', item.titulo, erros.titulo ) }}

@@ -47,9 +47,9 @@ def editar(id,**itens):
     item_form = ItemForm(**itens)
     erros = item_form.validate()
 
+    __ctx['path_editar'] = router.to_path(editar,id)
     if erros:
         __ctx['erros'] = erros
-        __ctx['path_editar'] = router.to_path(editar,id)
         __ctx['sucesso'] = 0
         __ctx['item'] = item_form
         return TemplateResponse(__ctx,'/meuperfil/caixaesquerda/itens/editar_form.html')
