@@ -14,6 +14,7 @@
                     <img data-src="holder.js/100%x200" alt="100%x200" src="" data-holder-rendered="true" style="height: 200px; width: 100%; display: block;">
                     <div class="caption">
                         <h4> {{ item.titulo }} </h4>
+                        <p> {{ item.categoria }} </p>
                         <p>
                             {% if item.descricao|length >= 40 %}
                                 {{ item.descricao[0:40] }}...

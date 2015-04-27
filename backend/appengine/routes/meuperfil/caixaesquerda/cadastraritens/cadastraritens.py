@@ -29,35 +29,37 @@ __ctx = {'items':'','categorias':'',
 def index():
     __ctx['salvar'] = router.to_path(salvar)
     __ctx['sucesso'] = 0
-
     query = Categoria.query().order(Categoria.categoria)
     __ctx['categorias'] = query.fetch()
-
-
     return TemplateResponse(__ctx)
 
 @login_required
 @no_csrf
 def salvar(**itens):
     __ctx['salvar'] = router.to_path(salvar)
-
     item_form = ItemForm(**itens)
-    itens['categoria_selecionada'] = ndb.Key(Categoria,int(itens['categoria_selecionada'])) #pega o objeto Key a partir de uma chave dada
-    erros = item_form.validate()
+    #itens['id_categoria'] = ndb.Key(Categoria,int(itens['id_categoria'])) #pega o objeto Key a partir de uma chave dada
 
+    itens['id_categoria'] = int(itens['id_categoria'])
+    erros = item_form.validate() #verifica se contém algum campo inválido
     if erros:
         __ctx['erros'] = erros
         __ctx['items'] = item_form
+        __ctx['sucesso'] = 0
     else:
         item = item_form.fill_model()
+        item.put()
+        __ctx['sucesso'] = 1
 
+
+
+        '''
         chave_item = item.put() #salva o item e pega a chave dele
         chave_categoria = itens['categoria_selecionada']
-
         tem_arco = TemArco(origin = chave_item, destination = chave_categoria) #cria o relacionamento
         tem_arco.put() #salva o relacionamento
-
         __ctx['sucesso'] = 1
+        '''
 
     '''
     #Caso necessite adicionar mais categorias
@@ -68,13 +70,16 @@ def salvar(**itens):
     '''
     return TemplateResponse(__ctx,'/meuperfil/caixaesquerda/cadastraritens/cadastraritens.html')
 
+
+
 class Item(Node):
     titulo = ndb.StringProperty(required=True)
     descricao = ndb.StringProperty(required=True)
+    id_categoria = ndb.StringProperty(required=False)
 
 class ItemForm(ModelForm):
     _model_class = Item
-    _include = [Item.titulo, Item.descricao]
+    _include = [Item.titulo, Item.descricao, Item.id_categoria]
 
 class Categoria(Node):
     categoria = ndb.StringProperty(required=True)

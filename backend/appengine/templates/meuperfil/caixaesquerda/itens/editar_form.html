@@ -7,6 +7,18 @@
         <form action="{{ path_editar }}" method="post" role="form">
             {{ csrf_input() }}
             {{ form_input( 'Título', 'titulo', item.titulo, erros.titulo ) }}
+            <div class="col-sm-4 col-md-4" style="width: 100%;">
+                <center><label class="col-sm-3 control-label" style="width: 100%;"> Categoria: </label></center>
+            </div>
+            <select name="id_categoria" class="form-control" style="margin-bottom: 10px;">
+            {% for cat in categorias %}
+                {% if item.id_categoria|string == cat.key.id()|string %}
+                    <option value="{{ cat.key.id() }}" selected>{{ cat.categoria }}</option>
+                {% else %}
+                    <option value="{{ cat.key.id() }}">{{ cat.categoria }}</option>
+                {% endif %}
+            {% endfor %}
+            </select>
             {{ form_input( 'Descrição', 'descricao', item.descricao, erros.descricao ) }}
             <div class="row">
                 <button type="submit" class="btn bt-preto" style="margin-top: 10px;"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Editar </button>
