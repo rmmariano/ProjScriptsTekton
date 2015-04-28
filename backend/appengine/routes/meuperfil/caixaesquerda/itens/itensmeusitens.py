@@ -50,7 +50,7 @@ def editar(id,**itens):
     id = int(id)
     item = Item.get_by_id(id)
     item_form = ItemForm(**itens)
-    itens['categoria_selecionada'] = ndb.Key(Categoria,int(itens['categoria_selecionada'])) #pega o objeto Key a partir de uma chave dada
+    itens['id_categoria'] = ndb.Key(Categoria,int(itens['id_categoria'])) #pega o objeto Key a partir de uma chave dada
     erros = item_form.validate()
     __ctx['path_editar'] = router.to_path(editar,id)
     if erros:
