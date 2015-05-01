@@ -33,4 +33,6 @@ def salvar(**itens):
         item = item_form.fill_model()
         item.put()
         __ctx['sucesso'] = 1
+    query = Categoria.query().order(Categoria.categoria)
+    __ctx['categorias'] = query.fetch()
     return TemplateResponse(__ctx,'/meuperfil/caixaesquerda/cadastraritens/cadastraritens.html')
