@@ -15,6 +15,7 @@ __ctx = {'items':'','categorias':'','salvar':'','erros':'','sucesso':0}
 def index():
     __ctx['salvar'] = router.to_path(salvar)
     __ctx['sucesso'] = 0
+    __ctx['items'] = ''
     query = Categoria.query().order(Categoria.categoria)
     __ctx['categorias'] = query.fetch()
     return TemplateResponse(__ctx)
