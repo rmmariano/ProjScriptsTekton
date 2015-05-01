@@ -15,7 +15,7 @@ __ctx = {'items':'','item':'','categorias':'','erros':'','sucesso':-1,'safe':'',
 @login_required
 @no_csrf
 def index(**itens):
-    if len(itens) == 0:
+    if len(itens) == 0 or itens['id_categoria'] == 'all':
         query = Item.query().order(Item.titulo)
         item_lista = query.fetch()
     else:
