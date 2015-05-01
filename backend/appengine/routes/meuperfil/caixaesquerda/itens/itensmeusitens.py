@@ -14,11 +14,9 @@ from tekton import router
 
 __author__ = 'Rodrigo'
 
-__ctx = {'items':'','item':'','categorias':'',
-         'erros':'','sucesso':-1,'safe':'',
-         'path_editar':'','path_editar_form':'',
-         'path_excluir':'','path_pesquisar':'',
-         'encontrado':-1}
+__ctx = {'items':'','item':'','categorias':'','erros':'','sucesso':-1,'safe':'','encontrado':-1,
+         'path_editar':'','path_editar_form':'','path_excluir':'','path_pesquisar':''
+         }
 
 @login_required
 @no_csrf
@@ -54,7 +52,6 @@ def index(_resp,**itens):
     __ctx['path_index'] = router.to_path(index)
     return TemplateResponse(__ctx)
 
-
 @login_required
 @no_csrf
 def editar(id,**itens):
@@ -79,16 +76,16 @@ def editar(id,**itens):
 
 @login_required
 @no_csrf
-def editar_form(_resp,id):
-    #não tirar o _resp, porque não sei como, com ele, o editar_form funciona, porém sem não funciona.
+def editar_form(id):
     id = int(id)
     item = Item.get_by_id(id)
     item_form = ItemForm()
     item_form.fill_with_model(item)
-    __ctx['item'] = item
+    __ctx['item'] = item_form
     __ctx['path_editar'] = router.to_path(editar,id)
     query = Categoria.query().order(Categoria.categoria)
-    __ctx['categorias'] = query.fetch()
+    categorias = query.fetch()
+    __ctx['categorias'] = categorias
     return TemplateResponse(__ctx,'/meuperfil/caixaesquerda/itens/editar_form.html')
 
 @login_required
@@ -119,3 +116,14 @@ class CategoriaForm(ModelForm):
 class TemArco(Arc):
     origin = ndb.KeyProperty(Item,required=True)
     destination = ndb.KeyProperty(Categoria,required=True)
+
+
+'''
+#codigo para adicionar categoria nova
+item_form.fill_model(item)
+chave_item = item.put() #salva o item e pega a chave dele
+chave_categoria = itens['categoria_selecionada']
+tem_arco = TemArco(origin = chave_item, destination = chave_categoria) #cria o relacionamento
+tem_arco.put() #salva o relacionamento
+__ctx['sucesso'] = 1
+'''
