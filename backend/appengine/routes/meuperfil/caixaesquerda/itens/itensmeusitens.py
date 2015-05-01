@@ -21,9 +21,11 @@ def index(**itens):
     else:
         query = Item.query(Item.id_categoria == itens['id_categoria']).order(Item.titulo)
         item_lista = query.fetch()
+
+    query = Categoria.query().order(Categoria.categoria)
+    categorias = query.fetch()
+
     if len(item_lista) > 0:
-        query = Categoria.query().order(Categoria.categoria)
-        categorias = query.fetch()
         form = ItemForm()
         item_lista = [form.fill_with_model(item) for item in item_lista] #transforma a classe em dicionário para poder adicionar valores dinamicamente
         p_editar_form = router.to_path(editar_form)
@@ -36,11 +38,12 @@ def index(**itens):
                 if item['id_categoria'] == cat.key:
                     item['categoria'] = cat.categoria
                     break
-        __ctx['categorias'] = categorias
         __ctx['itens'] = item_lista
         __ctx['encontrado'] = 1
     else:
         __ctx['encontrado'] = 0
+
+    __ctx['categorias'] = categorias
     __ctx['erros'] = ''
     __ctx['sucesso'] = -1
     __ctx['path_index'] = router.to_path(index)
