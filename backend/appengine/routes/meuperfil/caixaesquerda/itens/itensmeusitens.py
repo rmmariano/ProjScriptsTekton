@@ -17,32 +17,81 @@ __author__ = 'Rodrigo'
 __ctx = {'items':'','item':'','categorias':'',
          'erros':'','sucesso':-1,'safe':'',
          'path_editar':'','path_editar_form':'',
-         'path_excluir':''}
+         'path_excluir':'','path_pesquisar':'',
+         'encontrado':-1}
 
 @login_required
 @no_csrf
-def index():
-    query = Item.query().order(Item.titulo)
-    item_lista = query.fetch()
-    query = Categoria.query().order(Categoria.categoria)
-    categorias = query.fetch()
-    form = ItemForm()
-    item_lista = [form.fill_with_model(item) for item in item_lista] #transforma a classe em dicionário para poder adicionar valores dinamicamente
-    p_editar_form = router.to_path(editar_form)
-    p_excluir = router.to_path(excluir)
-    for item in item_lista:
-        item['path_editar_form'] = '%s/%s'%(p_editar_form,item['id'])
-        item['path_excluir'] = '%s/%s'%(p_excluir,item['id'])
-        item['id_categoria'] = ndb.Key(Categoria,int(item['id_categoria']))
-        for cat in categorias:
-            if item['id_categoria'] == cat.key:
-                item['categoria'] = cat.categoria
-                break
+def index(_resp,**itens):
+    if len(itens) == 0:
+        query = Item.query().order(Item.titulo)
+        item_lista = query.fetch()
+    else:
+        query = Item.query(Item.id_categoria == itens['id_categoria']).order(Item.titulo)
+        item_lista = query.fetch()
 
-    __ctx['itens'] = item_lista
+    if len(item_lista) > 0:
+        query = Categoria.query().order(Categoria.categoria)
+        categorias = query.fetch()
+        form = ItemForm()
+        item_lista = [form.fill_with_model(item) for item in item_lista] #transforma a classe em dicionário para poder adicionar valores dinamicamente
+        p_editar_form = router.to_path(editar_form)
+        p_excluir = router.to_path(excluir)
+        for item in item_lista:
+            item['path_editar_form'] = '%s/%s'%(p_editar_form,item['id'])
+            item['path_excluir'] = '%s/%s'%(p_excluir,item['id'])
+            item['id_categoria'] = ndb.Key(Categoria,int(item['id_categoria']))
+            for cat in categorias:
+                if item['id_categoria'] == cat.key:
+                    item['categoria'] = cat.categoria
+                    break
+        __ctx['categorias'] = categorias
+        __ctx['itens'] = item_lista
+        __ctx['encontrado'] = 1
+    else:
+        __ctx['encontrado'] = 0
     __ctx['erros'] = ''
     __ctx['sucesso'] = -1
+    __ctx['path_index'] = router.to_path(index)
     return TemplateResponse(__ctx)
+
+
+@login_required
+@no_csrf
+def pesquisar(_resp,**itens):
+    id_categoria = int(itens['id_categoria'])
+
+
+    categoria = Categoria.get_by_id(id_categoria)
+    _resp.write(str(categoria)+'\n\n')
+
+
+    query = Item.query(Item.id_categoria == itens['id_categoria']).order(Item.titulo)
+    item_lista = query.fetch()
+    form = ItemForm()
+    item_lista = [form.fill_with_model(item) for item in item_lista]
+    __ctx['itens'] = item_lista
+
+
+
+
+    _resp.write(item_lista)
+
+
+
+    #categoria = Categoria.get_by_id(id_categoria)
+    #_resp.write(categoria)
+
+
+    '''
+    __ctx['path_pesquisar'] = router.to_path(pesquisar)
+    return TemplateResponse(__ctx,'/meuperfil/caixaesquerda/itens/itensmeusitens.html')
+    '''
+
+
+
+
+
 
 @login_required
 @no_csrf

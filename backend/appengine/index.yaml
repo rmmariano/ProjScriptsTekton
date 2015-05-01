@@ -40,4 +40,10 @@ indexes:
 - kind: Node
   properties:
   - name: class
+  - name: id_categoria
+  - name: titulo
+
+- kind: Node
+  properties:
+  - name: class
   - name: titulo
