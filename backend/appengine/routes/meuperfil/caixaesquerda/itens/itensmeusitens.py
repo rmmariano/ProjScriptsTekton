@@ -29,7 +29,6 @@ def index(_resp,**itens):
     else:
         query = Item.query(Item.id_categoria == itens['id_categoria']).order(Item.titulo)
         item_lista = query.fetch()
-
     if len(item_lista) > 0:
         query = Categoria.query().order(Categoria.categoria)
         categorias = query.fetch()
@@ -58,48 +57,10 @@ def index(_resp,**itens):
 
 @login_required
 @no_csrf
-def pesquisar(_resp,**itens):
-    id_categoria = int(itens['id_categoria'])
-
-
-    categoria = Categoria.get_by_id(id_categoria)
-    _resp.write(str(categoria)+'\n\n')
-
-
-    query = Item.query(Item.id_categoria == itens['id_categoria']).order(Item.titulo)
-    item_lista = query.fetch()
-    form = ItemForm()
-    item_lista = [form.fill_with_model(item) for item in item_lista]
-    __ctx['itens'] = item_lista
-
-
-
-
-    _resp.write(item_lista)
-
-
-
-    #categoria = Categoria.get_by_id(id_categoria)
-    #_resp.write(categoria)
-
-
-    '''
-    __ctx['path_pesquisar'] = router.to_path(pesquisar)
-    return TemplateResponse(__ctx,'/meuperfil/caixaesquerda/itens/itensmeusitens.html')
-    '''
-
-
-
-
-
-
-@login_required
-@no_csrf
 def editar(id,**itens):
     id = int(id)
-    item = Item.get_by_id(id)
+    item_bd = Item.get_by_id(id)
     item_form = ItemForm(**itens)
-    itens['id_categoria'] = ndb.Key(Categoria,int(itens['id_categoria'])) #pega o objeto Key a partir de uma chave dada
     erros = item_form.validate()
     __ctx['path_editar'] = router.to_path(editar,id)
     if erros:
@@ -108,26 +69,18 @@ def editar(id,**itens):
         __ctx['sucesso'] = 0
         return TemplateResponse(__ctx,'/meuperfil/caixaesquerda/itens/editar_form.html')
     else:
-        item_form.fill_model(item)
-        item.put()
+        item_bd.titulo = itens['titulo']
+        item_bd.id_categoria = itens['id_categoria']
+        item_bd.descricao = itens['descricao']
+        item_bd.put()
+        __ctx['erros'] = ''
         __ctx['sucesso'] = 1
         return RedirectResponse(router.to_path(index))
-
-
-
-        '''
-        item_form.fill_model(item)
-        chave_item = item.put() #salva o item e pega a chave dele
-        chave_categoria = itens['categoria_selecionada']
-        tem_arco = TemArco(origin = chave_item, destination = chave_categoria) #cria o relacionamento
-        tem_arco.put() #salva o relacionamento
-        __ctx['sucesso'] = 1
-        '''
-
 
 @login_required
 @no_csrf
 def editar_form(_resp,id):
+    #não tirar o _resp, porque não sei como, com ele, o editar_form funciona, porém sem não funciona.
     id = int(id)
     item = Item.get_by_id(id)
     item_form = ItemForm()
@@ -135,15 +88,12 @@ def editar_form(_resp,id):
     __ctx['item'] = item
     __ctx['path_editar'] = router.to_path(editar,id)
     query = Categoria.query().order(Categoria.categoria)
-
-    #_resp.write(item)
-
     __ctx['categorias'] = query.fetch()
     return TemplateResponse(__ctx,'/meuperfil/caixaesquerda/itens/editar_form.html')
 
 @login_required
 @no_csrf
-def excluir(_resp,id):
+def excluir(id):
     chave = ndb.Key(Item,int(id))
     chave.delete()
     return RedirectResponse(router.to_path(index))
