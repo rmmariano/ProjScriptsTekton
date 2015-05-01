@@ -9,18 +9,23 @@ from model.db import *
 
 __author__ = 'Rodrigo'
 
-__ctx = {'items':'','item':'','categorias':'','erros':'','sucesso':-1,'safe':'','encontrado':-1,
+__ctx = {'items':'','item':'','categorias':'','categoria_selecionada':'','erros':'','sucesso':-1,'safe':'','encontrado':-1,
          'path_editar':'','path_editar_form':'','path_excluir':'','path_pesquisar':''}
 
 @login_required
 @no_csrf
-def index(**itens):
-    if len(itens) == 0 or itens['id_categoria'] == 'all':
+def index(id_categoria = None, **itens):
+    if id_categoria == None or id_categoria == 'all':
         query = Item.query().order(Item.titulo)
         item_lista = query.fetch()
+        if id_categoria == 'all':
+            __ctx['categoria_selecionada'] = 'all'
+        else:
+            __ctx['categoria_selecionada'] = ''
     else:
-        query = Item.query(Item.id_categoria == itens['id_categoria']).order(Item.titulo)
+        query = Item.query(Item.id_categoria == id_categoria).order(Item.titulo)
         item_lista = query.fetch()
+        __ctx['categoria_selecionada'] = id_categoria
 
     query = Categoria.query().order(Categoria.categoria)
     categorias = query.fetch()
@@ -91,27 +96,3 @@ def excluir(id):
     chave = ndb.Key(Item,int(id))
     chave.delete()
     return RedirectResponse(router.to_path(index))
-
-
-'''
-chave_item = item.put() #salva o item e pega a chave dele
-chave_categoria = itens['categoria_selecionada']
-tem_arco = TemArco(origin = chave_item, destination = chave_categoria) #cria o relacionamento
-tem_arco.put() #salva o relacionamento
-__ctx['sucesso'] = 1
-
-
-#Caso necessite adicionar mais categorias
-categorias = {'categoria':'CDs, DVDs e BLU-RAYs'}
-cat_form = CategoriaForm(**categorias)
-cat = cat_form.fill_model()
-cat.put()
-
-
-item_form.fill_model(item)
-chave_item = item.put() #salva o item e pega a chave dele
-chave_categoria = itens['categoria_selecionada']
-tem_arco = TemArco(origin = chave_item, destination = chave_categoria) #cria o relacionamento
-tem_arco.put() #salva o relacionamento
-__ctx['sucesso'] = 1
-'''

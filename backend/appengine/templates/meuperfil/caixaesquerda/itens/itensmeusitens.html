@@ -15,9 +15,17 @@
             <div class="col-md-5">
                 <select name="id_categoria" class="form-control" style="margin-bottom: 10px;">
                     {% for cat in categorias %}
-                        <option value="{{ cat.key.id() }}">{{ cat.categoria }}</option>
+                        {% if categoria_selecionada == cat.key.id()|string %}
+                            <option value="{{ cat.key.id() }}" selected>{{ cat.categoria }}</option>
+                        {% else %}
+                            <option value="{{ cat.key.id() }}">{{ cat.categoria }}</option>
+                        {% endif %}
                     {% endfor %}
-                    <option value="all"> Tudo </option>
+                    {% if categoria_selecionada == 'all' %}
+                        <option value="all" selected> Tudo </option>
+                    {% else %}
+                        <option value="all"> Tudo </option>
+                    {% endif %}
                 </select>
             </div>
             <!--div class="col-md-4">
