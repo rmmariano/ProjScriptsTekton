@@ -9,19 +9,16 @@
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist" id="myTab">
                 <li role="presentation">
-                    <a href="/meuperfil/caixaesquerda/itens/itensmeusitens">
-                         Meus Itens
-                    </a>
+                    <a href="/meuperfil/caixaesquerda/itens/itensmeusitens"> Meus Itens </a>
                 </li>
                 <li role="presentation">
-                    <a href="/meuperfil/caixaesquerda/cadastraritens/cadastraritens">
-                        Cadastrar Itens
-                    </a>
+                    <a href="/meuperfil/caixaesquerda/cadastraritens/cadastraritens"> Cadastrar Itens </a>
                 </li>
                 <li role="presentation">
-                    <a href="/meuperfil/caixaesquerda/outros/outros">
-                        Outros
-                    </a>
+                    <a href="/meuperfil/caixaesquerda/cadastrarcategorias/cadastrarcategorias"> Cadastrar Categorias </a>
+                </li>
+                <li role="presentation">
+                    <a href="/meuperfil/caixaesquerda/outros/outros"> Outros </a>
                 </li>
             </ul>
             <!-- Tab panes -->
@@ -29,6 +26,8 @@
                 {% block itensmeusitens %}
                 {% endblock %}
                 {% block cadastraritens %}
+                {% endblock %}
+                {% block cadastrarcategorias %}
                 {% endblock %}
                 {% block outros %}
                 {% endblock %}

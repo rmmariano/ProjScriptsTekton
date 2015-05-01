@@ -1,26 +1,20 @@
 # -*- coding: utf-8 -*-
-
 from __future__ import absolute_import, unicode_literals
 from config.template_middleware import TemplateResponse
-from gaegraph.model import Arc
 from gaecookie.decorator import no_csrf
 from gaepermission.decorator import login_required
-from tekton.gae.middleware.redirect import RedirectResponse
-
-from gaeforms.ndb.form import ModelForm
-from gaegraph.model import Node
-from google.appengine.ext import ndb
 from tekton import router
+from tekton.gae.middleware.redirect import RedirectResponse
+from model.db import *
 
 __author__ = 'Rodrigo'
 
 __ctx = {'items':'','item':'','categorias':'','erros':'','sucesso':-1,'safe':'','encontrado':-1,
-         'path_editar':'','path_editar_form':'','path_excluir':'','path_pesquisar':''
-         }
+         'path_editar':'','path_editar_form':'','path_excluir':'','path_pesquisar':''}
 
 @login_required
 @no_csrf
-def index(_resp,**itens):
+def index(**itens):
     if len(itens) == 0:
         query = Item.query().order(Item.titulo)
         item_lista = query.fetch()
@@ -65,14 +59,14 @@ def editar(id,**itens):
         __ctx['item'] = item_form
         __ctx['sucesso'] = 0
         return TemplateResponse(__ctx,'/meuperfil/caixaesquerda/itens/editar_form.html')
-    else:
-        item_bd.titulo = itens['titulo']
-        item_bd.id_categoria = itens['id_categoria']
-        item_bd.descricao = itens['descricao']
-        item_bd.put()
-        __ctx['erros'] = ''
-        __ctx['sucesso'] = 1
-        return RedirectResponse(router.to_path(index))
+
+    item_bd.titulo = itens['titulo']
+    item_bd.id_categoria = itens['id_categoria']
+    item_bd.descricao = itens['descricao']
+    item_bd.put()
+    __ctx['erros'] = ''
+    __ctx['sucesso'] = 1
+    return RedirectResponse(router.to_path(index))
 
 @login_required
 @no_csrf
@@ -96,30 +90,21 @@ def excluir(id):
     return RedirectResponse(router.to_path(index))
 
 
-
-class Item(Node):
-    titulo = ndb.StringProperty(required=True)
-    descricao = ndb.StringProperty(required=True)
-    id_categoria = ndb.StringProperty(required=False)
-
-class ItemForm(ModelForm):
-    _model_class = Item
-    _include = [Item.titulo, Item.descricao, Item.id_categoria]
-
-class Categoria(Node):
-    categoria = ndb.StringProperty(required=True)
-
-class CategoriaForm(ModelForm):
-    _model_class = Categoria
-    _include = [Categoria.categoria]
-
-class TemArco(Arc):
-    origin = ndb.KeyProperty(Item,required=True)
-    destination = ndb.KeyProperty(Categoria,required=True)
-
-
 '''
-#codigo para adicionar categoria nova
+chave_item = item.put() #salva o item e pega a chave dele
+chave_categoria = itens['categoria_selecionada']
+tem_arco = TemArco(origin = chave_item, destination = chave_categoria) #cria o relacionamento
+tem_arco.put() #salva o relacionamento
+__ctx['sucesso'] = 1
+
+
+#Caso necessite adicionar mais categorias
+categorias = {'categoria':'CDs, DVDs e BLU-RAYs'}
+cat_form = CategoriaForm(**categorias)
+cat = cat_form.fill_model()
+cat.put()
+
+
 item_form.fill_model(item)
 chave_item = item.put() #salva o item e pega a chave dele
 chave_categoria = itens['categoria_selecionada']

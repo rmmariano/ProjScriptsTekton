@@ -8,29 +8,29 @@ from model.db import *
 
 __author__ = 'Rodrigo'
 
-__ctx = {'items':'','categorias':'','salvar':'','erros':'','sucesso':0}
+__ctx = {'categorias':'','salvar':'','erros':'','sucesso':0}
 
 @login_required
 @no_csrf
 def index():
     __ctx['salvar'] = router.to_path(salvar)
     __ctx['sucesso'] = 0
-    query = Categoria.query().order(Categoria.categoria)
-    __ctx['categorias'] = query.fetch()
+    __ctx['categorias'] = ''
+    __ctx['erros'] = ''
     return TemplateResponse(__ctx)
 
 @login_required
 @no_csrf
 def salvar(**itens):
     __ctx['salvar'] = router.to_path(salvar)
-    item_form = ItemForm(**itens)
-    erros = item_form.validate()
+    categoria_form = CategoriaForm(**itens)
+    erros = categoria_form.validate()
     if erros:
         __ctx['erros'] = erros
-        __ctx['items'] = item_form
+        __ctx['categorias'] = categoria_form
         __ctx['sucesso'] = 0
     else:
-        item = item_form.fill_model()
-        item.put()
+        categoria = categoria_form.fill_model()
+        categoria.put()
         __ctx['sucesso'] = 1
-    return TemplateResponse(__ctx,'/meuperfil/caixaesquerda/cadastraritens/cadastraritens.html')
+    return TemplateResponse(__ctx,'/meuperfil/caixaesquerda/cadastrarcategorias/cadastrarcategorias.html')

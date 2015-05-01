@@ -1,56 +1,55 @@
 {% extends 'meuperfil/caixaesquerda/meusitens.html' %}
 
 {% block cadastraritens %}
-<div id="div-cadastraritens" class="container" style="max-width: 500px; text-align: center;">
-    <!-- /meuperfil/caixaesquerda/cadastraritens/cadastraritens/salvar -->
-    <!--form action="" method="get">
+    <div id="div-cadastraritens" class="container" style="max-width: 500px; text-align: center;">
+        <!-- /meuperfil/caixaesquerda/cadastraritens/cadastraritens/salvar -->
+        <!--form action="" method="get">
 
-        <div class="row">
-            <div class="col-sm-4 col-md-4">
-                <label class="col-sm-3 control-label"> <span class="spanObrigatorio">*</span>Categoria: </label>
-            </div>
-            <div class="col-sm-8 col-md-8">
-                <select name="select" class="form-control">
-
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4 col-md-4">
-                <label class="col-sm-3 control-label"> <span class="spanObrigatorio">*</span>Imagem: </label>
-            </div>
-            <div class="col-sm-8 col-md-8">
-                <center><input type="file" name="in-imagem"></center>
-                <p class="help-block">Insira somente arquivos de imagem aqui.</p>
-            </div>
-        </div>
-    </form-->
-    {% if sucesso %}
-        <div class="alert alert-success alert-dismissible fade in" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <strong> Adicionado com sucesso </strong>
-        </div>
-    {% endif %}
-    <form action="{{ salvar }}" method="post" role="form">
-        <div class="row">
-            {{ csrf_input() }}
-            {{ form_input( 'Título', 'titulo', items.titulo, erros.titulo ) }}
-            <div class="col-sm-4 col-md-4" style="width: 100%;">
-                <center><label class="col-sm-3 control-label" style="width: 100%;"> Categoria: </label></center>
-            </div>
-            <select name="id_categoria" class="form-control" style="margin-bottom: 10px;">
-            {% for cat in categorias %}
-                <option value="{{ cat.key.id() }}">{{ cat.categoria }}</option>
-            {% endfor %}
-            </select>
-            {{ form_input( 'Descrição', 'descricao', items.descricao, erros.descricao ) }}
             <div class="row">
-                <button type="submit" class="btn bt-preto" style="margin-top: 10px;"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Adicionar </button>
-            </div>
-        </div>
+                <div class="col-sm-4 col-md-4">
+                    <label class="col-sm-3 control-label"> <span class="spanObrigatorio">*</span>Categoria: </label>
+                </div>
+                <div class="col-sm-8 col-md-8">
+                    <select name="select" class="form-control">
 
-    </form>
-</div>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-md-4">
+                    <label class="col-sm-3 control-label"> <span class="spanObrigatorio">*</span>Imagem: </label>
+                </div>
+                <div class="col-sm-8 col-md-8">
+                    <center><input type="file" name="in-imagem"></center>
+                    <p class="help-block">Insira somente arquivos de imagem aqui.</p>
+                </div>
+            </div>
+        </form-->
+        {% if sucesso %}
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong> Adicionado com sucesso </strong>
+            </div>
+        {% endif %}
+        <form action="{{ salvar }}" method="post" role="form">
+            <div class="row">
+                {{ csrf_input() }}
+                {{ form_input( 'Título', 'titulo', items.titulo, erros.titulo ) }}
+                <div class="col-sm-4 col-md-4" style="width: 100%;">
+                    <center><label class="col-sm-3 control-label" style="width: 100%;"> Categoria: </label></center>
+                </div>
+                <select name="id_categoria" class="form-control" style="margin-bottom: 10px;">
+                {% for cat in categorias %}
+                    <option value="{{ cat.key.id() }}">{{ cat.categoria }}</option>
+                {% endfor %}
+                </select>
+                {{ form_input( 'Descrição', 'descricao', items.descricao, erros.descricao ) }}
+                <div class="row">
+                    <button type="submit" class="btn bt-preto" style="margin-top: 10px;"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Adicionar </button>
+                </div>
+            </div>
+        </form>
+    </div>
 {% endblock %}
