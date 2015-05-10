@@ -5,16 +5,16 @@ from gaecookie.decorator import no_csrf
 from gaepermission.decorator import login_required
 from tekton import router
 from model.db import *
+from tekton.gae.middleware.json_middleware import JsonUnsecureResponse
+from distutils import log
 
 __author__ = 'Rodrigo'
 
-__ctx = {'items':'','categorias':'','salvar':'','erros':'','sucesso':0}
+__ctx = {'items':'','categorias':'','erros':''}
 
 @login_required
 @no_csrf
 def index():
-    __ctx['salvar'] = router.to_path(salvar)
-    __ctx['sucesso'] = 0
     __ctx['items'] = ''
     query = Categoria.query().order(Categoria.categoria)
     __ctx['categorias'] = query.fetch()
@@ -22,18 +22,15 @@ def index():
 
 @login_required
 @no_csrf
-def salvar(**itens):
-    __ctx['salvar'] = router.to_path(salvar)
+def salvar(_resp,**itens):
     item_form = ItemForm(**itens)
     erros = item_form.validate()
     if erros:
-        __ctx['erros'] = erros
-        __ctx['items'] = item_form
-        __ctx['sucesso'] = 0
+        _resp.set_status(400)
+        dct = erros
     else:
         item = item_form.fill_model()
         item.put()
-        __ctx['sucesso'] = 1
-    query = Categoria.query().order(Categoria.categoria)
-    __ctx['categorias'] = query.fetch()
-    return TemplateResponse(__ctx,'/meuperfil/caixaesquerda/cadastraritens/cadastraritens.html')
+        dct = item_form.fill_with_model(item)
+        log.info(dct)
+    return JsonUnsecureResponse(dct)
