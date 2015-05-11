@@ -3,7 +3,6 @@ from __future__ import absolute_import, unicode_literals
 from config.template_middleware import TemplateResponse
 from gaecookie.decorator import no_csrf
 from gaepermission.decorator import login_required
-from tekton import router
 from model.db import *
 from tekton.gae.middleware.json_middleware import JsonUnsecureResponse
 from distutils import log

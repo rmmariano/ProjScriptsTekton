@@ -6,6 +6,7 @@ from gaepermission.decorator import login_required
 from tekton import router
 from tekton.gae.middleware.redirect import RedirectResponse
 from model.db import *
+from tekton.gae.middleware.json_middleware import JsonUnsecureResponse
 
 __author__ = 'Rodrigo'
 
@@ -92,7 +93,15 @@ def editar_form(id):
 
 @login_required
 @no_csrf
-def excluir(id):
-    chave = ndb.Key(Item,int(id))
-    chave.delete()
-    return RedirectResponse(router.to_path(index))
+def excluir(_resp,id):
+    if id != '' and id != None:
+        try:
+            chave = ndb.Key(Item,int(id))
+            chave.delete()
+        except:
+            _resp.set_status(400)
+            dct = {'error':'Ocorreu algum problema ao excluir o item!'}
+    else:
+        _resp.set_status(400)
+        dct = {'error':'ID do item está vazio!'}
+    return JsonUnsecureResponse(dct)
