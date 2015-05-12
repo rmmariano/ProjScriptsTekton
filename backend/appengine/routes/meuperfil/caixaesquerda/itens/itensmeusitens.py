@@ -13,6 +13,8 @@ __author__ = 'Rodrigo'
 __ctx = {'items':'','item':'','categorias':'','categoria_selecionada':'','erros':'','sucesso':-1,'safe':'','encontrado':-1,
          'path_editar':'','path_editar_form':'','path_excluir':'','path_pesquisar':''}
 
+__dct = {'error':''}
+
 @login_required
 @no_csrf
 def index(id_categoria = None, **itens):
@@ -100,8 +102,8 @@ def excluir(_resp,id):
             chave.delete()
         except:
             _resp.set_status(400)
-            dct = {'error':'Ocorreu algum problema ao excluir o item!'}
+            __dct['error'] = 'Ocorreu algum problema ao excluir o item!'
     else:
         _resp.set_status(400)
-        dct = {'error':'ID do item está vazio!'}
-    return JsonUnsecureResponse(dct)
+        __dct['error'] = 'ID do item está vazio!'
+    return JsonUnsecureResponse(__dct)
