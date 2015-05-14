@@ -11,6 +11,8 @@ __author__ = 'Rodrigo'
 
 __ctx = {'items':'','categorias':'','erros':''}
 
+
+'''
 @login_required
 @no_csrf
 def index():
@@ -33,3 +35,4 @@ def salvar(_resp,**itens):
         dct = item_form.fill_with_model(item)
         log.info(dct)
     return JsonUnsecureResponse(dct)
+'''

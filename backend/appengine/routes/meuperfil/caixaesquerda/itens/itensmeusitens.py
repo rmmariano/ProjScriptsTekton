@@ -13,6 +13,8 @@ __author__ = 'Rodrigo'
 __ctx = {'items':'','item':'','categorias':'','categoria_selecionada':'','erros':'','sucesso':-1,'safe':'','encontrado':-1,
          'path_editar':'','path_editar_form':'','path_excluir':'','path_pesquisar':''}
 
+#__ctx = {'items':'','categorias':'','erros':''}
+
 __dct = {'error':''}
 
 @login_required
@@ -107,3 +109,30 @@ def excluir(_resp,id):
         _resp.set_status(400)
         __dct['error'] = 'ID do item está vazio!'
     return JsonUnsecureResponse(__dct)
+
+
+
+#o que estava em cadastraritens.py
+'''
+@login_required
+@no_csrf
+def index():
+    __ctx['items'] = ''
+    query = Categoria.query().order(Categoria.categoria)
+    __ctx['categorias'] = query.fetch()
+    return TemplateResponse(__ctx)
+'''
+@login_required
+@no_csrf
+def salvar(_resp,**itens):
+    item_form = ItemForm(**itens)
+    erros = item_form.validate()
+    if erros:
+        _resp.set_status(400)
+        dct = erros
+    else:
+        item = item_form.fill_model()
+        item.put()
+        dct = item_form.fill_with_model(item)
+        log.info(dct)
+    return JsonUnsecureResponse(dct)
