@@ -1,6 +1,32 @@
 var ajax_gif_img = '-ajax-gif-img', err_div = '-err-div', err_int_div = '-err-int-div', main_div = '-main-div';
-var exc_sucesso_div = 'exc-sucesso-div', ex_mdl = '-ex-mdl';
-var $item_id_err_div = '', $exc_sucesso_div = '', $item_id_ex_mdl = '';
+var exc_sucesso_div = 'exc-sucesso-div', ex_mdl = '-ex-mdl', id_cat_buscar = 'id_cat_buscar';
+var $item_id_err_div = '', $exc_sucesso_div = '', $item_id_ex_mdl = '',  $id_cat_buscar = '';
+
+var doc_cat_buscar = '';
+
+function listarItens(){
+    var lst = { 'id_cat_buscar': doc_cat_buscar.options[doc_cat_buscar.selectedIndex].value };
+
+    $.ajax({
+        url: '/meuperfil/caixaesquerda/itens/itensmeusitens/listar',
+        type: "POST",
+        data: lst,
+        success: function(data){
+            $tituloInput.val(''); $descricaoInput.val(''); limparInputsItem();
+            $addSucessoDiv.show(); doc_cat[0].selected = true; $ajax_gif.hide();
+            adicionarItem(data);
+        },
+        error: function(data){
+            for (propriedade in data.responseJSON){
+                if (data.responseJSON[propriedade] != ''){
+                    $('#'+propriedade+'-div').addClass('has-error');
+                    $('#'+propriedade+'-span').text(data.responseJSON[propriedade]);
+                }
+            }
+            $ajax_gif.hide();
+        }
+    });
+}
 
 function limparItem(item_id){
     $item_id_err_div = $('#'+item_id.toString()+err_div);
@@ -39,8 +65,13 @@ function excluirItem(item_id){
 $(document).ready(function(){
     var titulo = 'titulo', descricao = 'descricao', id_categoria = 'id_categoria', add_sucesso = 'add-sucesso', ajax_gif = 'ajax-gif';
     var $tituloInput = $('#'+titulo+'-in'), $descricaoInput = $('#'+descricao+'-in'), $addSucessoDiv = $('#'+add_sucesso+'-div'), $ajax_gif = $('#'+ajax_gif+'-img');
+
+    $id_cat_buscar = $('#'+id_cat_buscar);
+
     var doc_cat = document.getElementById(id_categoria);
     var new_item = '';
+
+    doc_cat_buscar = document.getElementById(id_cat_buscar);
 
     var $rowMain = $('#row-main');
 
@@ -49,7 +80,7 @@ $(document).ready(function(){
     function limparInputsItem(){ $('#'+titulo+'-div').removeClass('has-error'); $('#'+titulo+'-span').text(''); $('#'+descricao+'-div').removeClass('has-error'); $('#'+descricao+'-span').text(''); $addSucessoDiv.hide(); }
 
     function adicionarItem(item){
-        new_item = '<div id="'+item.id+'}}-main-div">'+
+        new_item = '<div id="'+item.id+'-main-div">'+
                     '<div class="col-sm-4 col-md-4">' +
                         '<div class="thumbnail">'+
                             '<img data-src="holder.js/100%x200" alt="100%x200" src="" data-holder-rendered="true" style="height: 200px; width: 100%; display: block;">'+
@@ -57,13 +88,8 @@ $(document).ready(function(){
                                 '<h4>'+item.titulo+'</h4>'+
                                 '<p>'+item.categoria+'</p>'+
                                 '<p>';
-
-        if (item.descricao.length >= 40) {
-            new_item = new_item + item.descricao.substr(0,40);
-        }else{
-            new_item = new_item + item.descricao;
-        }
-
+        if (item.descricao.length >= 40) { new_item = new_item + item.descricao.substr(0,40); }
+        else{ new_item = new_item + item.descricao; }
         new_item = new_item + '</p>'+
                                 '<div class="row">'+
                                     '<div class="col-sm-6 col-md-6">'+
@@ -110,9 +136,6 @@ $(document).ready(function(){
                         '</div>'+
                     '</div>'+
                 '</div>';
-
-        console.log(new_item);
-
         $rowMain.append(new_item);
     }
 
@@ -127,15 +150,18 @@ $(document).ready(function(){
         $ajax_gif.show();
         $.ajax({
             url: '/meuperfil/caixaesquerda/itens/itensmeusitens/salvar',
+            type: "POST",
             data: obterInputsItem(),
             success: function(data){
-                $tituloInput.val(''); $descricaoInput.val(''); limparInputsItem(); $addSucessoDiv.show(); doc_cat[0].selected = true; $ajax_gif.hide();
+                $tituloInput.val(''); $descricaoInput.val(''); limparInputsItem();
+                $addSucessoDiv.show(); doc_cat[0].selected = true; $ajax_gif.hide();
                 adicionarItem(data);
             },
             error: function(data){
                 for (propriedade in data.responseJSON){
                     if (data.responseJSON[propriedade] != ''){
-                        $('#'+propriedade+'-div').addClass('has-error'); $('#'+propriedade+'-span').text(data.responseJSON[propriedade]);
+                        $('#'+propriedade+'-div').addClass('has-error');
+                        $('#'+propriedade+'-span').text(data.responseJSON[propriedade]);
                     }
                 }
                 $ajax_gif.hide();

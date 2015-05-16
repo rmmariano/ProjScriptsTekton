@@ -46,7 +46,7 @@
                 <p> Buscar por categoria: </p>
             </div>
             <div class="col-md-5">
-                <select name="id_categoria" class="form-control" style="margin-bottom: 10px;">
+                <select name="id_cat_buscar" class="form-control" style="margin-bottom: 10px;">
                     {% for cat in categorias %}
                         {% if categoria_selecionada == cat.key.id()|string %}
                             <option value="{{ cat.key.id() }}" selected>{{ cat.categoria }}</option>

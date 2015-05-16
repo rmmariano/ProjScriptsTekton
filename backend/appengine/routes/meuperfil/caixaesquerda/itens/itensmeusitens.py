@@ -7,6 +7,7 @@ from tekton import router
 from tekton.gae.middleware.redirect import RedirectResponse
 from model.db import *
 from tekton.gae.middleware.json_middleware import JsonUnsecureResponse
+from distutils import log
 
 __author__ = 'Rodrigo'
 
@@ -108,6 +109,7 @@ def excluir(_resp,id):
     else:
         _resp.set_status(400)
         __dct['error'] = 'ID do item está vazio!'
+
     return JsonUnsecureResponse(__dct)
 
 
@@ -136,3 +138,50 @@ def salvar(_resp,**itens):
         dct = item_form.fill_with_model(item)
         log.info(dct)
     return JsonUnsecureResponse(dct)
+
+
+@login_required
+@no_csrf
+def listar(id_categoria):
+
+
+    #começar listar
+
+    if id_categoria == None or id_categoria == 'all':
+        query = Item.query().order(Item.titulo)
+        item_lista = query.fetch()
+        if id_categoria == 'all':
+            __ctx['categoria_selecionada'] = 'all'
+        else:
+            __ctx['categoria_selecionada'] = ''
+    else:
+        query = Item.query(Item.id_categoria == id_categoria).order(Item.titulo)
+        item_lista = query.fetch()
+        __ctx['categoria_selecionada'] = id_categoria
+
+    query = Categoria.query().order(Categoria.categoria)
+    categorias = query.fetch()
+
+    if len(item_lista) > 0:
+        form = ItemForm()
+        item_lista = [form.fill_with_model(item) for item in item_lista] #transforma a classe em dicionário para poder adicionar valores dinamicamente
+        p_editar_form = router.to_path(editar_form)
+        p_excluir = router.to_path(excluir)
+        for item in item_lista:
+            item['path_editar_form'] = '%s/%s'%(p_editar_form,item['id'])
+            item['path_excluir'] = '%s/%s'%(p_excluir,item['id'])
+            item['id_categoria'] = ndb.Key(Categoria,int(item['id_categoria']))
+            for cat in categorias:
+                if item['id_categoria'] == cat.key:
+                    item['categoria'] = cat.categoria
+                    break
+        __ctx['itens'] = item_lista
+        __ctx['encontrado'] = 1
+    else:
+        __ctx['encontrado'] = 0
+
+    __ctx['categorias'] = categorias
+    __ctx['erros'] = ''
+    __ctx['sucesso'] = -1
+    __ctx['path_index'] = router.to_path(index)
+    return TemplateResponse(__ctx)
