@@ -40,35 +40,31 @@
 <div class="linha"></div>
 
 <div id="div-itensmeusitens">
-    <form action="{{ path_index }}" method="post">
-        <div class="row">
-            <div class="col-md-4">
-                <p> Buscar por categoria: </p>
-            </div>
-            <div class="col-md-5">
-                <select name="id_cat_buscar" class="form-control" style="margin-bottom: 10px;">
-                    {% for cat in categorias %}
-                        {% if categoria_selecionada == cat.key.id()|string %}
-                            <option value="{{ cat.key.id() }}" selected>{{ cat.categoria }}</option>
-                        {% else %}
-                            <option value="{{ cat.key.id() }}">{{ cat.categoria }}</option>
-                        {% endif %}
-                    {% endfor %}
-                    {% if categoria_selecionada == 'all' %}
-                        <option value="all" selected> Tudo </option>
-                    {% else %}
-                        <option value="all"> Tudo </option>
-                    {% endif %}
-                </select>
-            </div>
-            <!--div class="col-md-4">
-                <input type="text" class="form-control" id="inTituloProduto" placeholder="Título do produto">
-            </div-->
-            <div class="col-md-2">
-                <button type="submit" class="btn bt-preto"> Buscar </button>
-            </div>
+    <div class="row">
+        <div class="col-md-4">
+            <p> Buscar por categoria: </p>
         </div>
-    </form>
+        <div class="col-md-5">
+            <select name="id_cat_buscar" class="form-control" style="margin-bottom: 10px;">
+                {% for cat in categorias %}
+                    {% if categoria_selecionada == cat.key.id()|string %}
+                        <option value="{{ cat.key.id() }}" selected>{{ cat.categoria }}</option>
+                    {% else %}
+                        <option value="{{ cat.key.id() }}">{{ cat.categoria }}</option>
+                    {% endif %}
+                {% endfor %}
+                {% if categoria_selecionada == 'all' %}
+                    <option value="all" selected> Tudo </option>
+                {% else %}
+                    <option value="all"> Tudo </option>
+                {% endif %}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button class="btn bt-preto" onclick="listarItens();"> Buscar </button>
+            <img id="buscar-ajax-gif-img" src="/static/img/ajax.gif" style="display: none; margin-left: 20px;"/>
+        </div>
+    </div>
 
     <div class="linha"></div>
 
@@ -80,8 +76,16 @@
     </div>
 
     <div id="row-main" class="row">
+        <div id="nenhum-item" style="display: none;">
+            <h2> Não foi encontrado nenhum registro! </h2>
+            <h2> Tente novamente. </h2>
+        </div>
+        <div id="ocorreu-problema" style="display: none;">
+            <h2> Ops! Ocorreu algum problema. </h2>
+            <h2> Tente novamente mais tarde. </h2>
+        </div>
         {% if encontrado == 0 %}
-            <h2> Não foi encontrado nenhum registro! <h2>
+            <h2> Não foi encontrado nenhum registro! </h2>
             <h2> Tente novamente. </h2>
         {% else %}
             {% for item in itens %}

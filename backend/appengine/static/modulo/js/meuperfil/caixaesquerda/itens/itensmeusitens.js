@@ -4,26 +4,39 @@ var $item_id_err_div = '', $exc_sucesso_div = '', $item_id_ex_mdl = '',  $id_cat
 
 var doc_cat_buscar = '';
 
-function listarItens(){
-    var lst = { 'id_cat_buscar': doc_cat_buscar.options[doc_cat_buscar.selectedIndex].value };
+function limparRowMain(){
+    var $row_main = $('#row-main');
+    $row_main.empty();
+}
 
+function listarItens(){
+    var $buscar_ajax_gif_img = $('#buscar-ajax-gif-img');
+    var id_cat_buscar = doc_cat_buscar.options[doc_cat_buscar.selectedIndex].value;
+    var $nenhumItem = $('#nenhum-item');
+    var $ocorreu_problema = $('#ocorreu-problema');
+
+    $buscar_ajax_gif_img.show();
     $.ajax({
-        url: '/meuperfil/caixaesquerda/itens/itensmeusitens/listar',
-        type: "POST",
-        data: lst,
+        url: '/meuperfil/caixaesquerda/itens/itensmeusitens/index/'+id_cat_buscar+'/1',
+        type: "GET",
+        data: {},
         success: function(data){
-            $tituloInput.val(''); $descricaoInput.val(''); limparInputsItem();
-            $addSucessoDiv.show(); doc_cat[0].selected = true; $ajax_gif.hide();
-            adicionarItem(data);
+            limparRowMain();
+            if (data['categorias'].length > 0) {
+                var i;
+                for (i = 0; i < data['categorias'].length; i++) {
+                    adicionarItem(data['categorias'][i]);
+                }
+            }else{
+                $nenhumItem.show();
+            }
+            doc_cat_buscar[0].selected = true;
+            $buscar_ajax_gif_img.hide();
         },
         error: function(data){
-            for (propriedade in data.responseJSON){
-                if (data.responseJSON[propriedade] != ''){
-                    $('#'+propriedade+'-div').addClass('has-error');
-                    $('#'+propriedade+'-span').text(data.responseJSON[propriedade]);
-                }
-            }
-            $ajax_gif.hide();
+            console.log(data);
+            $ocorreu_problema.show();
+            $buscar_ajax_gif_img.hide();
         }
     });
 }
@@ -49,7 +62,7 @@ function excluirItem(item_id){
         success: function(data){
             $ajax_gif_img.hide();
             $item_id_ex_mdl.modal('hide'); /* faz o modal (junto com a tela escura) desaparecer */
-            $item_id_main_div.hide(); /* faz sumir todo o main_div do item */
+            $item_id_main_div.hide(); /* faz sumir t odo o main_div do item */
             $exc_sucesso_div.show();
         },
         error: function(data){
