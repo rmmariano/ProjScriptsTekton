@@ -10,6 +10,12 @@
         var itensMeusItensApp = angular.module('itensMeusItensApp',['itemModulo']);
 
         function itemCtrl($scope){
+            $scope.item = {
+                'titulo':'Teste',
+                'id_categoria':'4863277368606720',
+                'descricao':'Teste'
+            };
+
             $scope.mostrarFormFlag = false;
 
             $scope.mostrarOuEsconderFormCadastrarItem = function(){
@@ -28,7 +34,7 @@
 <div id="id_main_ng_js" ng-app="itensMeusItensApp" ng-controller="itemCtrl">
     <button class="btn bt-preto" ng-click="mostrarOuEsconderFormCadastrarItem()"> >>> Novo Item </button>
 
-    <cadastraritemform ng-show="mostrarFormFlag"></cadastraritemform>
+    <cadastraritemform ng-show="mostrarFormFlag" item-interno="item" titulo-label="Título" categoria-label="Categoria:" descricao-label="Descrição"></cadastraritemform>
 
     <!--div id="div-cadastraritens" class="container" style="max-width: 500px; text-align: center;">
         <h1> Cadastrar item </h1>

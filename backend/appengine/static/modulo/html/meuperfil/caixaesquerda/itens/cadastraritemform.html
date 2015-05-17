@@ -8,15 +8,15 @@
     </div>
     <div class="row">
         <div id="titulo-div" class="form-group">
-            <label for="titulo-in" class="control-label">Título </label>
-            <input id="titulo-in" type="text" class="form-control" name="titulo" value="">
+            <label for="titulo-in" class="control-label"> {{ tituloLabel }} </label>
+            <input id="titulo-in" type="text" class="form-control" ng-model="itemInterno.titulo">
             <span id="titulo-span" class="help-block"></span>
         </div>
 
         <div class="col-sm-4 col-md-4" style="width: 100%;">
-            <center><label class="col-sm-3 control-label" style="width: 100%;"> Categoria: </label></center>
+            <center><label class="col-sm-3 control-label" style="width: 100%;"> {{ categoriaLabel }} </label></center>
         </div>
-        <select id="id_categoria" name="id_categoria" class="form-control" style="margin-bottom: 10px;">
+        <select id="id_categoria" class="form-control" style="margin-bottom: 10px;" ng-model="itemInterno.id_categoria">
             <option value="4863277368606720">Brinquedos e Games</option>
             <option value="5707702298738688">CDs, DVDs e BLU-RAYs</option>
             <option value="6270652252160000">Informática</option>
@@ -27,8 +27,8 @@
         </select>
 
         <div id="descricao-div" class="form-group">
-            <label for="descricao-in" class="control-label">Descrição </label>
-            <input id="descricao-in" type="text" class="form-control" name="descricao" value="">
+            <label for="descricao-in" class="control-label"> {{ descricaoLabel }} </label>
+            <input id="descricao-in" type="text" class="form-control" ng-model="itemInterno.descricao">
             <span id="descricao-span" class="help-block"></span>
         </div>
 

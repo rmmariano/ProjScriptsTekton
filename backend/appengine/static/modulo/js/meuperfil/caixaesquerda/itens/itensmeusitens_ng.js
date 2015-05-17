@@ -7,6 +7,12 @@ itemModulo.directive('cadastraritemform',function(){
     return {
         restrict: 'E',
         replace: true,
-        templateUrl: '/static/modulo/html/meuperfil/caixaesquerda/itens/cadastraritemform.html'
+        templateUrl: '/static/modulo/html/meuperfil/caixaesquerda/itens/cadastraritemform.html',
+        scope:{
+            itemInterno:'=',
+            tituloLabel:'@',
+            categoriaLabel:'@',
+            descricaoLabel:'@'
+        }
     };
 });
