@@ -68,19 +68,35 @@ def index(id_categoria = None, buscar = '0'):
 
 @login_required
 @no_csrf
-def listar(id_cat_buscar):
+def listar(_resp,id_cat_buscar):
 
     categorias = (Categoria.query().order(Categoria.categoria)).fetch()
     form = ItemForm()
 
     if id_cat_buscar == 'all':
-        items = (Item.query().order(Item.titulo)).fetch()
+        item_lista = (Item.query().order(Item.titulo)).fetch()
     else:
-        items = (Item.query(Item.id_categoria == id_cat_buscar).order(Item.titulo)).fetch()
+        item_lista = (Item.query(Item.id_categoria == id_cat_buscar).order(Item.titulo)).fetch()
 
-    items = [form.fill_with_model(p) for p in items]
+    if item_lista > 0:
+        item_lista = [form.fill_with_model(p) for p in item_lista]
 
-    return JsonUnsecureResponse(items)
+        p_editar_form = router.to_path(editar_form)
+        p_excluir = router.to_path(excluir)
+
+        for item in item_lista:
+            item['path_editar_form'] = '%s/%s'%(p_editar_form,item['id'])
+            item['path_excluir'] = '%s/%s'%(p_excluir,item['id'])
+            item['id_categoria'] = ndb.Key(Categoria,int(item['id_categoria']))
+            for cat in categorias:
+                if item['id_categoria'] == cat.key:
+                    item['categoria'] = cat.categoria
+                    break
+    else:
+        item_lista = {'error':'Não foi encontrado nenhum item.'}
+        _resp.set_status(400)
+
+    return JsonUnsecureResponse(item_lista)
 
 @login_required
 @no_csrf
