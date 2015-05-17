@@ -78,12 +78,11 @@ function listarItens(){
     var id_cat_buscar = doc_cat_buscar.options[doc_cat_buscar.selectedIndex].value;
     var $nenhumItem = $('#nenhum-item');
     var $ocorreu_problema = $('#ocorreu-problema');
-
-    //var lst = {'id_categoria':id_cat_buscar};
-
+    $nenhumItem.hide()
     $buscar_ajax_gif_img.show();
     $.ajax({
         url: '/meuperfil/caixaesquerda/itens/itensmeusitens/listar',
+        type: 'POST',
         data: {'id_cat_buscar':id_cat_buscar},
         success: function(data){
             limparRowMain();

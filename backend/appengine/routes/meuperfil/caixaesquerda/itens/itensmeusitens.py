@@ -43,7 +43,7 @@ def index(id_categoria = None, buscar = '0'):
         p_excluir = router.to_path(excluir)
         for item in item_lista:
             item['path_editar_form'] = '%s/%s'%(p_editar_form,item['id'])
-            item['path_excluir'] = '%s/%s'%(p_excluir,item['id'])
+            #item['path_excluir'] = '%s/%s'%(p_excluir,item['id'])
             item['id_categoria'] = ndb.Key(Categoria,int(item['id_categoria']))
             for cat in categorias:
                 if item['id_categoria'] == cat.key:
@@ -80,16 +80,12 @@ def listar(_resp,id_cat_buscar):
 
     if item_lista > 0:
         item_lista = [form.fill_with_model(p) for p in item_lista]
-
         p_editar_form = router.to_path(editar_form)
-        p_excluir = router.to_path(excluir)
-
         for item in item_lista:
             item['path_editar_form'] = '%s/%s'%(p_editar_form,item['id'])
-            item['path_excluir'] = '%s/%s'%(p_excluir,item['id'])
-            item['id_categoria'] = ndb.Key(Categoria,int(item['id_categoria']))
+            key_cat = ndb.Key(Categoria,int(item['id_categoria']))
             for cat in categorias:
-                if item['id_categoria'] == cat.key:
+                if key_cat == cat.key:
                     item['categoria'] = cat.categoria
                     break
     else:
