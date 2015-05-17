@@ -2,6 +2,21 @@
 
 {% block js %}
     <script type="application/javascript" src="/static/modulo/js/meuperfil/caixaesquerda/itens/itensmeusitens.js"></script>
+    <script type="text/javascript" src="/static/angular/js/angular.min.js"></script>
+    <script type="text/javascript" src="/static/modulo/js/meuperfil/caixaesquerda/itens/itensmeusitens_ng.js"></script>
+    <script type="text/javascript">
+        //itensMeusItensApp é o ng-app, o nó principal, onde o angular entende
+        //itemModulo é um módulo criado para a utilização do <cadastraritemform></cadastraritemform>
+        var itensMeusItensApp = angular.module('itensMeusItensApp',['itemModulo']);
+
+        function itemCtrl($scope){
+            $scope.mostrarFormFlag = false;
+
+            $scope.mostrarOuEsconderFormCadastrarItem = function(){
+                $scope.mostrarFormFlag = !$scope.mostrarFormFlag;
+            };
+        }
+    </script>
 {% endblock %}
 
 {% block itensmeusitens %}
@@ -10,147 +25,159 @@
         margin-bottom: 15px;
     }
 </style>
-<div id="div-cadastraritens" class="container" style="max-width: 500px; text-align: center;">
-    <h1> Cadastrar item </h1>
-    <div id='add-sucesso-div' class="alert alert-success alert-dismissible fade in" role="alert" style="display: none;">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        <strong> Item adicionado com sucesso </strong>
-    </div>
-    <div class="row">
-        {{ csrf_input() }}
-        {{ form_input( 'Título', 'titulo', items.titulo, erros.titulo ) }}
-        <div class="col-sm-4 col-md-4" style="width: 100%;">
-            <center><label class="col-sm-3 control-label" style="width: 100%;"> Categoria: </label></center>
+<div id="id_main_ng_js" ng-app="itensMeusItensApp" ng-controller="itemCtrl">
+    <button class="btn bt-preto" ng-click="mostrarOuEsconderFormCadastrarItem()"> >>> Novo Item </button>
+
+    <cadastraritemform ng-show="mostrarFormFlag"></cadastraritemform>
+
+    <!--div id="div-cadastraritens" class="container" style="max-width: 500px; text-align: center;">
+        <h1> Cadastrar item </h1>
+        <div id='add-sucesso-div' class="alert alert-success alert-dismissible fade in" role="alert" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <strong> Item adicionado com sucesso </strong>
         </div>
-        <select id='id_categoria' name="id_categoria" class="form-control" style="margin-bottom: 10px;">
-        {% for cat in categorias %}
-            <option value="{{ cat.key.id() }}">{{ cat.categoria }}</option>
-        {% endfor %}
-        </select>
-        {{ form_input( 'Descrição', 'descricao', items.descricao, erros.descricao ) }}
         <div class="row">
-            <button id='adicionar-btn' class="btn bt-preto" style="margin-top: 10px;"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Adicionar </button>
-            <img id="ajax-gif-img" src="/static/img/ajax.gif" style="display: none; margin-left: 20px;"/>
-        </div>
-    </div>
-</div>
-
-<div class="linha"></div>
-
-<div id="div-itensmeusitens">
-    <div class="row">
-        <div class="col-md-4">
-            <p> Buscar por categoria: </p>
-        </div>
-        <div class="col-md-5">
-            <select id="id_cat_buscar" name="id_cat_buscar" class="form-control" style="margin-bottom: 10px;">
-                {% for cat in categorias %}
-                    {% if categoria_selecionada == cat.key.id()|string %}
-                        <option value="{{ cat.key.id() }}" selected>{{ cat.categoria }}</option>
-                    {% else %}
-                        <option value="{{ cat.key.id() }}">{{ cat.categoria }}</option>
-                    {% endif %}
-                {% endfor %}
-                {% if categoria_selecionada == 'all' %}
-                    <option value="all" selected> Tudo </option>
-                {% else %}
-                    <option value="all"> Tudo </option>
-                {% endif %}
+            {#
+            {{ csrf_input() }}
+            {{ form_input( 'Título', 'titulo', items.titulo, erros.titulo ) }}
+            <div class="col-sm-4 col-md-4" style="width: 100%;">
+                <center><label class="col-sm-3 control-label" style="width: 100%;"> Categoria: </label></center>
+            </div>
+            <select id='id_categoria' name="id_categoria" class="form-control" style="margin-bottom: 10px;">
+            {% for cat in categorias %}
+                <option value="{{ cat.key.id() }}">{{ cat.categoria }}</option>
+            {% endfor %}
             </select>
+            {{ form_input( 'Descrição', 'descricao', items.descricao, erros.descricao ) }}
+            <div class="row">
+                <button id='adicionar-btn' class="btn bt-preto" style="margin-top: 10px;"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Adicionar </button>
+                <img id="ajax-gif-img" src="/static/img/ajax.gif" style="display: none; margin-left: 20px;"/>
+            </div>
+             #}
         </div>
-        <div class="col-md-2">
-            <button class="btn bt-preto" onclick="listarItens();"> Buscar </button>
-            <img id="buscar-ajax-gif-img" src="/static/img/ajax.gif" style="display: none; margin-left: 20px;"/>
-        </div>
-    </div>
+    </div-->
 
     <div class="linha"></div>
 
-    <div id='exc-sucesso-div' class="alert alert-success alert-dismissible fade in" role="alert" style="display: none;">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        <strong> Item excluído com sucesso </strong>
-    </div>
+    <div id="div-itensmeusitens">
+        <div id=div-buscaritens">
+            <div class="row">
+                <div class="col-md-4">
+                    <p> Buscar por categoria: </p>
+                </div>
+                <div class="col-md-5">
+                    <select id="id_cat_buscar" name="id_cat_buscar" class="form-control" style="margin-bottom: 10px;">
+                        {% for cat in categorias %}
+                            {% if categoria_selecionada == cat.key.id()|string %}
+                                <option value="{{ cat.key.id() }}" selected>{{ cat.categoria }}</option>
+                            {% else %}
+                                <option value="{{ cat.key.id() }}">{{ cat.categoria }}</option>
+                            {% endif %}
+                        {% endfor %}
+                        {% if categoria_selecionada == 'all' %}
+                            <option value="all" selected> Tudo </option>
+                        {% else %}
+                            <option value="all"> Tudo </option>
+                        {% endif %}
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn bt-preto" onclick="listarItens();"> Buscar </button>
+                    <img id="buscar-ajax-gif-img" src="/static/img/ajax.gif" style="display: none; margin-left: 20px;"/>
+                </div>
+            </div>
+        </div>
 
-    <div id="nenhum-item" style="display: none;">
-        <h2> Não foi encontrado nenhum registro! </h2>
-        <h2> Tente novamente. </h2>
-    </div>
-    <div id="ocorreu-problema" style="display: none;">
-        <h2> Ops! Ocorreu algum problema. </h2>
-        <h2> Tente novamente mais tarde. </h2>
-    </div>
+        <div class="linha"></div>
 
-    <div id="row-main" class="row">
-        {% if encontrado == 0 %}
-            <h2> Não foi encontrado nenhum registro! </h2>
-            <h2> Tente novamente. </h2>
-        {% else %}
-            {% for item in itens %}
-                <div id="{{ item.id }}-main-div">
-                    <div class="col-sm-4 col-md-4">
-                        <div class="thumbnail">
-                            <img data-src="holder.js/100%x200" alt="100%x200" src="" data-holder-rendered="true" style="height: 200px; width: 100%; display: block;">
-                            <div class="caption">
-                                <h4> {{ item.titulo }} </h4>
-                                <p> {{ item.categoria }} </p>
-                                <p>
-                                    {% if item.descricao|length >= 40 %}
-                                        {{ item.descricao[0:40] }}...
-                                    {% else %}
-                                        {{ item.descricao }}
-                                    {% endif %}
-                                </p>
-                                <div class="row">
-                                    <div class="col-sm-6 col-md-6">
-                                        <a href="{{ item.path_editar_form }}">
-                                            <button type="submit" class="btn btn-info">
-                                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar
+        <div id=div-mostraritens">
+            <div id='exc-sucesso-div' class="alert alert-success alert-dismissible fade in" role="alert" style="display: none;">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong> Item excluído com sucesso </strong>
+            </div>
+
+            <div id="nenhum-item" style="display: none;">
+                <h2> Não foi encontrado nenhum registro! </h2>
+                <h2> Tente novamente. </h2>
+            </div>
+            <div id="ocorreu-problema" style="display: none;">
+                <h2> Ops! Ocorreu algum problema. </h2>
+                <h2> Tente novamente mais tarde. </h2>
+            </div>
+
+            <div id="row-main" class="row">
+            {% if encontrado == 0 %}
+                <h2> Não foi encontrado nenhum registro! </h2>
+                <h2> Tente novamente. </h2>
+            {% else %}
+                {% for item in itens %}
+                    <div id="{{ item.id }}-main-div">
+                        <div class="col-sm-4 col-md-4">
+                            <div class="thumbnail">
+                                <img data-src="holder.js/100%x200" alt="100%x200" src="" data-holder-rendered="true" style="height: 200px; width: 100%; display: block;">
+                                <div class="caption">
+                                    <h4> {{ item.titulo }} </h4>
+                                    <p> {{ item.categoria }} </p>
+                                    <p>
+                                        {% if item.descricao|length >= 40 %}
+                                            {{ item.descricao[0:40] }}...
+                                        {% else %}
+                                            {{ item.descricao }}
+                                        {% endif %}
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-sm-6 col-md-6">
+                                            <a href="{{ item.path_editar_form }}">
+                                                <button type="submit" class="btn btn-info">
+                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar
+                                                </button>
+                                            </a>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6">
+                                            <button type="button" onclick="limparItem({{ item.id }});" class="btn btn-danger" data-toggle="modal" data-target="#{{ item.id }}-ex-mdl">
+                                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Excluir
                                             </button>
-                                        </a>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6">
-                                        <button type="button" onclick="limparItem({{ item.id }});" class="btn btn-danger" data-toggle="modal" data-target="#{{ item.id }}-ex-mdl">
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Excluir
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal fade" id="{{ item.id }}-ex-mdl" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="exampleModalLabel"> Excluir </h4>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <h3> Deseja realmente excluir "{{ item.titulo }}"? </h3>
-                                        <div id="{{ item.id }}-err-div" class="alert alert-danger" role="alert" style="margin-bottom: 0px; margin-top: 20px; display: none;">
-                                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                                            Ops!!! Ocorreu algum problema, tente novamente mais tarde!
-                                            <div id="{{ item.id }}-err-int-div"></div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <center>
-                                        <button id="{{ item.id }}-btn" onclick="excluirItem({{ item.id }});" class="btn btn-primary"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Sim </button>
-                                        <button type="button" class="btn btn-default" data-dismiss="modal"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Não </button>
-                                        <img id="{{ item.id }}-ajax-gif-img" src="/static/img/ajax.gif" style="display: none; margin-left: 20px;"/>
-                                    </center>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="{{ item.id }}-ex-mdl" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="exampleModalLabel"> Excluir </h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <h3> Deseja realmente excluir "{{ item.titulo }}"? </h3>
+                                            <div id="{{ item.id }}-err-div" class="alert alert-danger" role="alert" style="margin-bottom: 0px; margin-top: 20px; display: none;">
+                                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                                Ops!!! Ocorreu algum problema, tente novamente mais tarde!
+                                                <div id="{{ item.id }}-err-int-div"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <center>
+                                            <button id="{{ item.id }}-btn" onclick="excluirItem({{ item.id }});" class="btn btn-primary"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Sim </button>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Não </button>
+                                            <img id="{{ item.id }}-ajax-gif-img" src="/static/img/ajax.gif" style="display: none; margin-left: 20px;"/>
+                                        </center>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
-        {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+        </div>
     </div>
 </div>
 {% endblock %}

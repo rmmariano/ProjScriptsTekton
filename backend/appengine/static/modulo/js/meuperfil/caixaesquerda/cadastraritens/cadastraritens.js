@@ -1,4 +1,5 @@
-$(document).ready(function(){
+//esta em itensmeusitens.js
+/*$(document).ready(function(){
     var titulo = 'titulo', descricao = 'descricao', id_categoria = 'id_categoria', add_sucesso = 'add-sucesso', ajax_gif = 'ajax-gif';
     var $tituloInput = $('#'+titulo+'-in'), $descricaoInput = $('#'+descricao+'-in'), $addSucessoDiv = $('#'+add_sucesso+'-div'), $ajax_gif = $('#'+ajax_gif+'-img');
     var doc_cat = document.getElementById(id_categoria);
@@ -32,4 +33,4 @@ $(document).ready(function(){
             }
         });
     });
-});
+});*/

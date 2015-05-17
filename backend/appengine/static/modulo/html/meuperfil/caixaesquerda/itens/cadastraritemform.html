@@ -1,0 +1,40 @@
+<div id="div-cadastraritens" class="container" style="max-width: 500px; text-align: center;">
+    <h1> Cadastrar item </h1>
+    <div id="add-sucesso-div" class="alert alert-success alert-dismissible fade in" role="alert" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+        <strong> Item adicionado com sucesso </strong>
+    </div>
+    <div class="row">
+        <div id="titulo-div" class="form-group">
+            <label for="titulo-in" class="control-label">Título </label>
+            <input id="titulo-in" type="text" class="form-control" name="titulo" value="">
+            <span id="titulo-span" class="help-block"></span>
+        </div>
+
+        <div class="col-sm-4 col-md-4" style="width: 100%;">
+            <center><label class="col-sm-3 control-label" style="width: 100%;"> Categoria: </label></center>
+        </div>
+        <select id="id_categoria" name="id_categoria" class="form-control" style="margin-bottom: 10px;">
+            <option value="4863277368606720">Brinquedos e Games</option>
+            <option value="5707702298738688">CDs, DVDs e BLU-RAYs</option>
+            <option value="6270652252160000">Informática</option>
+            <option value="5812155903377408">Livros, Mangás e HQs</option>
+            <option value="5989177275449344">Móveis</option>
+            <option value="5426227322028032">Outros</option>
+            <option value="5144752345317376">Vestuário</option>
+        </select>
+
+        <div id="descricao-div" class="form-group">
+            <label for="descricao-in" class="control-label">Descrição </label>
+            <input id="descricao-in" type="text" class="form-control" name="descricao" value="">
+            <span id="descricao-span" class="help-block"></span>
+        </div>
+
+        <div class="row">
+            <button id="adicionar-btn" class="btn bt-preto" style="margin-top: 10px;"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Adicionar </button>
+            <img id="ajax-gif-img" src="/static/img/ajax.gif" style="display: none; margin-left: 20px;">
+        </div>
+    </div>
+</div>
