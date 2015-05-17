@@ -69,7 +69,6 @@ def index(id_categoria = None, buscar = '0'):
 @login_required
 @no_csrf
 def listar(_resp,id_cat_buscar):
-
     categorias = (Categoria.query().order(Categoria.categoria)).fetch()
     form = ItemForm()
 

@@ -8,11 +8,35 @@ itemModulo.directive('cadastraritemform',function(){
         restrict: 'E',
         replace: true,
         templateUrl: '/static/modulo/html/meuperfil/caixaesquerda/itens/cadastraritemform.html',
-        scope:{
+        scope: {
             itemInterno:'=',
             tituloLabel:'@',
             categoriaLabel:'@',
             descricaoLabel:'@'
+        },
+        controller: function($scope, $http){
+            $scope.salvandoFlag = false;
+
+            $scope.salvar = function(){
+                $scope.salvandoFlag = true;
+                $scope.erros = {};
+                $http.post(
+                    '/meuperfil/caixaesquerda/itens/itensmeusitens/salvar',
+                    $scope.itemInterno
+                ).success(function(data){
+                    console.log('sucesso');
+                    console.log(data);
+                    $scope.itemInterno.titulo = '';
+                    $scope.itemInterno.id_categoria = '4863277368606720';
+                    $scope.itemInterno.descricao = '';
+                    $scope.salvandoFlag = false;
+                }).error(function(data){
+                    console.log('erro');
+                    console.log(data);
+                    $scope.erros = data;
+                    $scope.salvandoFlag = false;
+                });
+            }
         }
     };
 });

@@ -7,10 +7,10 @@
         <strong> Item adicionado com sucesso </strong>
     </div>
     <div class="row">
-        <div id="titulo-div" class="form-group">
+        <div id="titulo-div" class="form-group" ng-class="{true:'',false:'has-error'}[erros.titulo == null]">
             <label for="titulo-in" class="control-label"> {{ tituloLabel }} </label>
             <input id="titulo-in" type="text" class="form-control" ng-model="itemInterno.titulo">
-            <span id="titulo-span" class="help-block"></span>
+            <span id="titulo-span" class="help-block" ng-show="erros.titulo">{{ erros.titulo }}</span>
         </div>
 
         <div class="col-sm-4 col-md-4" style="width: 100%;">
@@ -26,15 +26,15 @@
             <option value="5144752345317376">Vestuário</option>
         </select>
 
-        <div id="descricao-div" class="form-group">
+        <div id="descricao-div" class="form-group" ng-class="{true:'',false:'has-error'}[erros.descricao == null]">
             <label for="descricao-in" class="control-label"> {{ descricaoLabel }} </label>
             <input id="descricao-in" type="text" class="form-control" ng-model="itemInterno.descricao">
-            <span id="descricao-span" class="help-block"></span>
+            <span id="descricao-span" class="help-block" ng-show="erros.descricao">{{ erros.descricao }}</span>
         </div>
 
         <div class="row">
-            <button id="adicionar-btn" class="btn bt-preto" style="margin-top: 10px;"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Adicionar </button>
-            <img id="ajax-gif-img" src="/static/img/ajax.gif" style="display: none; margin-left: 20px;">
+            <button id="adicionar-btn" ng-click="salvar()" ng-hide="salvandoFlag" class="btn bt-preto" style="margin-top: 10px;"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Adicionar </button>
+            <img id="ajax-gif-img" ng-show="salvandoFlag" src="/static/img/ajax.gif" style="margin-left: 20px;">
         </div>
     </div>
 </div>
