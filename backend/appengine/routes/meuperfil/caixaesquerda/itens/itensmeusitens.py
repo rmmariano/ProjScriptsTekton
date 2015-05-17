@@ -68,10 +68,18 @@ def index(id_categoria = None, buscar = '0'):
 
 @login_required
 @no_csrf
-def listar():
+def listar(id_cat_buscar):
+
+    categorias = (Categoria.query().order(Categoria.categoria)).fetch()
     form = ItemForm()
-    items = (Item.query().order(Item.titulo)).fetch()
+
+    if id_cat_buscar == 'all':
+        items = (Item.query().order(Item.titulo)).fetch()
+    else:
+        items = (Item.query(Item.id_categoria == id_cat_buscar).order(Item.titulo)).fetch()
+
     items = [form.fill_with_model(p) for p in items]
+
     return JsonUnsecureResponse(items)
 
 @login_required
