@@ -4,7 +4,21 @@
     <script type="application/javascript" src="/static/modulo/js/meuperfil/caixaesquerda/itens/itensmeusitens.js"></script>
     <script type="text/javascript" src="/static/angular/js/angular.min.js"></script>
     <script type="text/javascript" src="/static/modulo/js/meuperfil/caixaesquerda/itens/itensmeusitens_ng.js"></script>
+    <!-- import de teste -->
+    <!--script type="text/javascript" src="/static/modulo/js/meuperfil/caixaesquerda/itens/item_api_mock.js"></script-->
     <script type="text/javascript">
+        var rest = angular.module('rest',[]);
+
+        rest.factory('ItemApi',function($http){
+            return {
+                salvar: function(item){
+
+                    return $http.post('{{ path_salvar }}',item);
+
+                }
+            };
+        });
+
         //itensMeusItensApp é o ng-app, o nó principal, onde o angular entende
         //itemModulo é um módulo criado para a utilização do <cadastraritemform></cadastraritemform>
         var itensMeusItensApp = angular.module('itensMeusItensApp',['itemModulo']);

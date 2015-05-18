@@ -57,14 +57,9 @@ def index(id_categoria = None, buscar = '0'):
     __ctx['erros'] = ''
     __ctx['sucesso'] = -1
     __ctx['path_index'] = router.to_path(index)
+    __ctx['path_salvar'] = router.to_path(salvar)
 
-    if buscar == '1':
-        '''cat_form = CategoriaForm()
-        cat_lista = [cat_form.fill_with_model(cat) for cat in __ctx['categorias']]'''
-        #return JsonUnsecureResponse(cat_lista)
-        return JsonUnsecureResponse(item_lista)
-    else:
-        return TemplateResponse(__ctx)
+    return TemplateResponse(__ctx)
 
 @login_required
 @no_csrf
