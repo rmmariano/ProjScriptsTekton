@@ -1,0 +1,10 @@
+Relacionamento:
+https://tradesproject.appspot.com
+https://1-dot-tradesproject.appspot.com
+
+JQuery:
+https://2-dot-tradesproject.appspot.com
+
+AngularJS:
+
+
