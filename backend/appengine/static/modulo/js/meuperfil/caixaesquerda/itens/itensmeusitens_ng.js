@@ -39,3 +39,18 @@ itemModulo.directive('cadastraritemform',function(){
         }
     };
 });
+
+//diretiva <divmostraritens></divmostraritens>
+itemModulo.directive('mostraritens',function(){
+    return {
+        restrict: 'E',
+        replace: true,
+        templateUrl: '/static/modulo/html/meuperfil/caixaesquerda/itens/mostraritens.html',
+        scope: {
+            itemInterno:'='
+        },
+        controller: function($scope, ItemApi){
+
+        }
+    };
+});
