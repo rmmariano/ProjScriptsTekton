@@ -29,8 +29,8 @@
             $scope.item = { 'titulo':'', 'id_categoria':'4863277368606720', 'descricao':'' };
 
             $scope.mostrarFormFlag = false;
-            $scope.itemLista = [{'id':'01', 'titulo':'hueb', 'id_categoria':'4863277368606720', 'descricao':'hue' }];
-            //$scope.itemLista = [{'titulo':'hue'},{'titulo':'outrohue'}];
+            //$scope.itemLista = [{'id':'01', 'titulo':'hueb', 'id_categoria':'4863277368606720', 'descricao':'hue' }];
+            $scope.itemLista = {{ itens|safe }};
 
             $scope.mostrarOuEsconderFormCadastrarItem = function(){
                 $scope.mostrarFormFlag = !$scope.mostrarFormFlag;
