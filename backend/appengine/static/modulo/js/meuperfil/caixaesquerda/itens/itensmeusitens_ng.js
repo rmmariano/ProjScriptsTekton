@@ -55,6 +55,8 @@ itemModulo.directive('mostraritens',function(){
         },
         controller: function($scope, ItemApi){
             $scope.excluindoEditandoFlag = false;
+            $scope.itemEdicao = {};
+            $scope.editandoFlag = false;
             $scope.excluir = function(){
                 $scope.excluindoEditandoFlag = true;
                 ItemApi.excluir($scope.itemInterno.id).success(function(){
@@ -63,6 +65,18 @@ itemModulo.directive('mostraritens',function(){
                 }).error(function(data){
                     console.log(data);
                 });
+            };
+
+            $scope.editar = function () {
+                $scope.editandoFlag = true;
+                $scope.itemEdicao.id = $scope.itemInterno.id;
+                $scope.itemEdicao.titulo = $scope.itemInterno.titulo;
+                $scope.itemEdicao.descricao = $scope.itemInterno.descricao;
+                $scope.itemEdicao.categoria= $scope.itemInterno.categoria;
+            };
+
+            $scope.cancelarEdicao = function () {
+                $scope.editandoFlag = false;
             };
 
         }

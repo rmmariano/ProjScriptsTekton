@@ -1,14 +1,22 @@
 <tr>
     <td>
-        <button class="btn btn-success btn-sm" ng-hide="excluindoEditandoFlag">
-            <i class="glyphicon glyphicon-pencil"></i>
+        <button class="btn btn-success btn-sm" ng-hide="excluindoEditandoFlag || editandoFlag">
+            <i class="glyphicon glyphicon-pencil" ng-click="editar()"></i>
+        </button>
+        <button class="btn btn-success btn-sm" ng-hide="excluindoEditandoFlag || !editandoFlag">
+            <i class="glyphicon glyphicon-floppy-save" ng-click="completarEdicao()"></i>
+        </button>
+        <button class="btn btn-warning btn-sm" ng-hide="excluindoEditandoFlag || !editandoFlag">
+            <i class="glyphicon glyphicon-remove" ng-click="cancelarEdicao()"></i>
         </button>
         <img id="ajax-gif-img-excluindo-editando" ng-show="excluindoEditandoFlag" src="/static/img/ajax.gif" style="margin-left: 20px;">
     </td>
-    <td>{{ itemInterno.id }}</td>
-    <td>{{ itemInterno.titulo }}</td>
+    <td><span ng-hide="editandoFlag">{{ itemInterno.titulo }}</span>
+        <input ng-show="editandoFlag" type="text" ng-model="itemEdicao.titulo"></td>
+    <td><span ng-hide="editandoFlag">{{ itemInterno.descricao }}</span>
+        <input ng-show="editandoFlag" type="text" ng-model="itemEdicao.descricao"></td>
     <td>{{ itemInterno.categoria }}</td>
-    <td>{{ itemInterno.descricao }}</td>
+    <td>{{ itemInterno.id }}</td>
     <td>
         <button class="btn btn-danger btn-sm" ng-hide="excluindoEditandoFlag" ng-click="excluir(itemInterno)">
             <i class="glyphicon glyphicon-trash"></i>

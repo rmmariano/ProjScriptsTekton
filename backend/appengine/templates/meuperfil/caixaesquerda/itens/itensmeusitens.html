@@ -114,63 +114,17 @@
     <div class="linha"></div>
 
     <div id="div-itensmeusitens">
-        <div id=div-buscaritens">
-            <div class="row">
-                <div class="col-md-4">
-                    <p> Buscar por categoria: </p>
-                </div>
-                <div class="col-md-5">
-                    <select id="id_cat_buscar" name="id_cat_buscar" class="form-control" style="margin-bottom: 10px;">
-                        {% for cat in categorias %}
-                            {% if categoria_selecionada == cat.key.id()|string %}
-                                <option value="{{ cat.key.id() }}" selected>{{ cat.categoria }}</option>
-                            {% else %}
-                                <option value="{{ cat.key.id() }}">{{ cat.categoria }}</option>
-                            {% endif %}
-                        {% endfor %}
-                        {% if categoria_selecionada == 'all' %}
-                            <option value="all" selected> Tudo </option>
-                        {% else %}
-                            <option value="all"> Tudo </option>
-                        {% endif %}
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <button class="btn bt-preto" onclick="listarItens();"> Buscar </button>
-                    <img id="buscar-ajax-gif-img" src="/static/img/ajax.gif" style="display: none; margin-left: 20px;"/>
-                </div>
-            </div>
-        </div>
-
-        <div class="linha"></div>
 
         <div id=div-mostraritens">
-            <div>
-                <div id='exc-sucesso-div' class="alert alert-success alert-dismissible fade in" role="alert" style="display: none;">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <strong> Item excluído com sucesso </strong>
-                </div>
-                <div id="nenhum-item" style="display: none;">
-                    <h2> Não foi encontrado nenhum registro! </h2>
-                    <h2> Tente novamente. </h2>
-                </div>
-                <div id="ocorreu-problema" style="display: none;">
-                    <h2> Ops! Ocorreu algum problema. </h2>
-                    <h2> Tente novamente mais tarde. </h2>
-                </div>
-            </div>
-
 
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
                         <th/>
-                        <th> Id </th>
                         <th> Titulo </th>
-                        <th> Categoria </th>
                         <th> Descricao </th>
+                        <th> Categoria </th>
+                        <th> Id </th>
                     </tr>
                 </thead>
                 <tbody>
