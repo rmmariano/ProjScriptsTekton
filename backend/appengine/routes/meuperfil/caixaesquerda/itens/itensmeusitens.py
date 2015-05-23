@@ -14,7 +14,7 @@ from json import dumps
 __author__ = 'Rodrigo'
 
 __ctx = {'items':'','item':'','categorias':'','categoria_selecionada':'','erros':'','sucesso':-1,'safe':'','encontrado':-1,
-         'path_editar':'','path_editar_form':'','path_excluir':'','path_pesquisar':''}
+         'path_editar':'','path_editar_form':'','path_excluir':'','path_pesquisar':'', 'path_listar':''}
 
 #__ctx = {'items':'','categorias':'','erros':''}
 
@@ -61,10 +61,9 @@ def index(id_categoria = None):
     __ctx['sucesso'] = -1
     __ctx['path_index'] = router.to_path(index)
     __ctx['path_salvar'] = router.to_path(salvar)
+    __ctx['path_listar'] = router.to_path(listar)
 
-    str_json = dumps(item_lista)
-
-    __ctx['itens'] = str_json
+    __ctx['itens'] = dumps(item_lista) #converte o item_lista para json
 
     return TemplateResponse(__ctx)
 
@@ -115,11 +114,11 @@ def index(id_categoria = None, buscar = '0'):
 
 @login_required
 @no_csrf
-def listar(_resp,id_cat_buscar):
+def listar(_resp,id_cat_buscar = None):
     categorias = (Categoria.query().order(Categoria.categoria)).fetch()
     form = ItemForm()
 
-    if id_cat_buscar == 'all':
+    if id_cat_buscar == 'all' or id_cat_buscar == None:
         item_lista = (Item.query().order(Item.titulo)).fetch()
     else:
         item_lista = (Item.query(Item.id_categoria == id_cat_buscar).order(Item.titulo)).fetch()

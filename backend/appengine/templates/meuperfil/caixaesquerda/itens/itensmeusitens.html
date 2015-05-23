@@ -13,28 +13,38 @@
         rest.factory('ItemApi',function($http){
             return {
                 salvar: function(item){
-
                     return $http.post('{{ path_salvar }}',item);
-
+                },
+                listar: function(data){
+                    return $http.post('{{ path_listar }}');
                 }
             };
         });
 
         //itensMeusItensApp é o ng-app, o nó principal, onde o angular entende
         //itemModulo é um módulo criado para a utilização do <cadastraritemform></cadastraritemform>
-        var itensMeusItensApp = angular.module('itensMeusItensApp',['itemModulo']);
+        var itensMeusItensApp = angular.module('itensMeusItensApp',['itemModulo','rest']);
 
-        function itemCtrl($scope){
+        function itemCtrl($scope, ItemApi){
             /*valores default do formulário cadastrar item*/
             $scope.item = { 'titulo':'', 'id_categoria':'4863277368606720', 'descricao':'' };
 
             $scope.mostrarFormFlag = false;
             //$scope.itemLista = [{'id':'01', 'titulo':'hueb', 'id_categoria':'4863277368606720', 'descricao':'hue' }];
-            $scope.itemLista = {{ itens|safe }};
+            //$scope.itemLista = {# {{ itens|safe }};  #}
+            $scope.itemLista = [];
+
+            $scope.listandoFlag = true;
+
+            ItemApi.listar().success(function(itens){
+                $scope.itemLista = itens;
+                $scope.listandoFlag = false;
+            });
 
             $scope.mostrarOuEsconderFormCadastrarItem = function(){
                 $scope.mostrarFormFlag = !$scope.mostrarFormFlag;
             };
+
         }
     </script>
 {% endblock %}
@@ -139,6 +149,9 @@
                 <div mostraritens ng-repeat="i in itemLista" item-interno="i"></div>
 
             </div>
+
+            <img id="ajax-gif-img-mostraritens" ng-show="listandoFlag" src="/static/img/ajax.gif" style="margin-left: 20px;">
+
         </div>
 
     </div>
