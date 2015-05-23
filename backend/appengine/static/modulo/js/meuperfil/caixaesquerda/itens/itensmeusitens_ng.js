@@ -40,7 +40,7 @@ itemModulo.directive('cadastraritemform',function(){
     };
 });
 
-//diretiva <divmostraritens></divmostraritens>
+//diretiva <mostraritens></mostraritens> // mostraritens
 itemModulo.directive('mostraritens',function(){
     return {
         restrict: 'E',
@@ -49,7 +49,7 @@ itemModulo.directive('mostraritens',function(){
         scope: {
             itemInterno:'='
         },
-        controller: function($scope, ItemApi){
+        controller: function(){
 
         }
     };

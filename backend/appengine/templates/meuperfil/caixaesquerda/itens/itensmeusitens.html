@@ -6,19 +6,19 @@
     <script type="text/javascript" src="/static/angular/js/angular.min.js"></script>
     <script type="text/javascript" src="/static/modulo/js/meuperfil/caixaesquerda/itens/itensmeusitens_ng.js"></script>
     <!-- import de teste -->
-    <script type="text/javascript" src="/static/modulo/js/meuperfil/caixaesquerda/itens/item_api_mock.js"></script>
+    <!--script type="text/javascript" src="/static/modulo/js/meuperfil/caixaesquerda/itens/item_api_mock.js"></script-->
     <script type="text/javascript">
-        /*var rest = angular.module('rest',[]);
+        var rest = angular.module('rest',[]);
 
         rest.factory('ItemApi',function($http){
             return {
-                salvar: function(item){ {#
+                salvar: function(item){
 
                     return $http.post('{{ path_salvar }}',item);
 
-                }  #}
+                }
             };
-        });*/
+        });
 
         //itensMeusItensApp é o ng-app, o nó principal, onde o angular entende
         //itemModulo é um módulo criado para a utilização do <cadastraritemform></cadastraritemform>
@@ -29,7 +29,8 @@
             $scope.item = { 'titulo':'', 'id_categoria':'4863277368606720', 'descricao':'' };
 
             $scope.mostrarFormFlag = false;
-            $scope.itemLista = [{'id':'01', 'titulo':'huebr', 'id_categoria':'4863277368606720', 'descricao':'hue' }];
+            $scope.itemLista = [{'id':'01', 'titulo':'hueb', 'id_categoria':'4863277368606720', 'descricao':'hue' }];
+            //$scope.itemLista = [{'titulo':'hue'},{'titulo':'outrohue'}];
 
             $scope.mostrarOuEsconderFormCadastrarItem = function(){
                 $scope.mostrarFormFlag = !$scope.mostrarFormFlag;
@@ -46,6 +47,7 @@
     }
 </style>
 <div id="id_main_ng_js" ng-app="itensMeusItensApp" ng-controller="itemCtrl">
+
     <button class="btn bt-preto" ng-click="mostrarOuEsconderFormCadastrarItem()"> >>> Novo Item </button>
 
     <cadastraritemform ng-show="mostrarFormFlag" item-interno="item" titulo-label="Título"
@@ -133,7 +135,7 @@
 
             <div id="row-main" class="row">
 
-                <mostraritens ng-repeat="i in itemLista" itemInterno="i"></mostraritens>
+                <mostraritens ng-repeat="i in itemLista" item-interno="i"></mostraritens>
 
             </div>
         </div>
