@@ -43,7 +43,8 @@ itemModulo.directive('cadastraritemform',function(){
 //diretiva <mostraritens></mostraritens> // mostraritens
 itemModulo.directive('mostraritens',function(){
     return {
-        restrict: 'E',
+        //restrict: 'E',
+        restrict: 'A',
         replace: true,
         templateUrl: '/static/modulo/html/meuperfil/caixaesquerda/itens/mostraritens.html',
         scope: {
