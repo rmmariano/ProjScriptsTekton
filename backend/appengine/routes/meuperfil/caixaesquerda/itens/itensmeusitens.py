@@ -148,6 +148,7 @@ def editar(_resp,id,**itens):
     item_bd = Item.get_by_id(id)
     item_form = ItemForm(**itens)
     erros = item_form.validate()
+
     if erros:
         _resp.set_status(400)
         dct = erros
@@ -156,8 +157,13 @@ def editar(_resp,id,**itens):
         item_bd.id_categoria = itens['id_categoria']
         item_bd.descricao = itens['descricao']
         item_bd.put()
-
         dct = item_form.fill_with_model(item_bd)
+        categorias = (Categoria.query().order(Categoria.categoria)).fetch()
+        key_cat = ndb.Key(Categoria,int(itens['id_categoria']))
+        for cat in categorias:
+            if key_cat == cat.key:
+                dct['categoria'] = cat.categoria
+                break
 
     log.info(dct)
     return JsonUnsecureResponse(dct)
