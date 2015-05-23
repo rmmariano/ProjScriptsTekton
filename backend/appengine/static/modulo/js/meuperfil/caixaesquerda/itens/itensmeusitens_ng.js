@@ -4,6 +4,7 @@ var itemModulo = angular.module('itemModulo',['rest']);
 //insere a diretiva que o itemModulo fará, no caso terá a tag <cadastraritemform></cadastraritemform>
 //e onde ela for citada, substituirá pelo o que a diretiva retorna.
 itemModulo.directive('cadastraritemform',function(){
+    // '=' faz binding bidirecional , '@' da o resultado de uma expressao, '&' uma expressao para funcoes
     return {
         restrict: 'E',
         replace: true,
@@ -12,7 +13,8 @@ itemModulo.directive('cadastraritemform',function(){
             itemInterno:'=',
             tituloLabel:'@',
             categoriaLabel:'@',
-            descricaoLabel:'@'
+            descricaoLabel:'@',
+            saveComplete: '&'
         },
         controller: function($scope, ItemApi){
             $scope.salvandoFlag = false;
@@ -22,16 +24,16 @@ itemModulo.directive('cadastraritemform',function(){
                 $scope.erros = {};
                 var promessa = ItemApi.salvar($scope.itemInterno);
                 promessa.success(function(data){
-                    console.log('sucesso');
-                    console.log(data);
                     $scope.itemInterno.titulo = '';
                     $scope.itemInterno.id_categoria = '4863277368606720';
                     $scope.itemInterno.descricao = '';
                     $scope.salvandoFlag = false;
+
+                    if ($scope.saveComplete != undefined) {
+                        $scope.saveComplete({'item': data});
+                    }
                 });
                 promessa.error(function(data){
-                    console.log('erro');
-                    console.log(data);
                     $scope.erros = data;
                     $scope.salvandoFlag = false;
                 });

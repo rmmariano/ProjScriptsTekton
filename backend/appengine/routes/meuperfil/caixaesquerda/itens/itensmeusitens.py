@@ -191,18 +191,6 @@ def excluir(_resp,id):
 
     return JsonUnsecureResponse(__dct)
 
-
-
-#o que estava em cadastraritens.py
-'''
-@login_required
-@no_csrf
-def index():
-    __ctx['items'] = ''
-    query = Categoria.query().order(Categoria.categoria)
-    __ctx['categorias'] = query.fetch()
-    return TemplateResponse(__ctx)
-'''
 @login_required
 @no_csrf
 def salvar(_resp,**itens):
@@ -215,6 +203,14 @@ def salvar(_resp,**itens):
         item = item_form.fill_model()
         item.put()
         dct = item_form.fill_with_model(item)
+        categorias = (Categoria.query().order(Categoria.categoria)).fetch()
+        p_editar_form = router.to_path(editar_form)
+        dct['path_editar_form'] = '%s/%s'%(p_editar_form,dct['id'])
+        key_cat = ndb.Key(Categoria,int(dct['id_categoria']))
+        for cat in categorias:
+            if key_cat == cat.key:
+                dct['categoria'] = cat.categoria
+                break
         log.info(dct)
     return JsonUnsecureResponse(dct)
 

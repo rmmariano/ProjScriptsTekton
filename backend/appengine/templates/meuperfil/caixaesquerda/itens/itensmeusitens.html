@@ -45,6 +45,10 @@
                 $scope.mostrarFormFlag = !$scope.mostrarFormFlag;
             };
 
+            $scope.adicionarItem = function(item){
+                $scope.itemLista.unshift(item);
+            };
+
         }
     </script>
 {% endblock %}
@@ -61,7 +65,9 @@
     <button class="btn bt-preto" ng-click="mostrarOuEsconderFormCadastrarItem()"> >>> Novo Item </button>
 
     <cadastraritemform ng-show="mostrarFormFlag" item-interno="item" titulo-label="Título"
-                       categoria-label="Categoria:" descricao-label="Descrição"></cadastraritemform>
+                       categoria-label="Categoria:" descricao-label="Descrição"
+                       save-complete="adicionarItem(item)">
+    </cadastraritemform>
 
     <!--div id="div-cadastraritens" class="container" style="max-width: 500px; text-align: center;">
         <h1> Cadastrar item </h1>
