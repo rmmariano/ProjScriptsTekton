@@ -17,6 +17,9 @@
                 },
                 listar: function(data){
                     return $http.post('{{ path_listar }}');
+                },
+                excluir: function(id_ex){
+                    return $http.post('{{ path_excluir }}',{id:id_ex});
                 }
             };
         });
@@ -47,6 +50,16 @@
 
             $scope.adicionarItem = function(item){
                 $scope.itemLista.unshift(item);
+            };
+
+            $scope.removerItem = function(item){
+                var itemLista = $scope.itemLista;
+                for(var i=0;i<itemLista.length;i++){
+                    if(item.id == itemLista[i].id){
+                        itemLista.splice(i,1);
+                        break;
+                    }
+                }
             };
 
         }
@@ -149,12 +162,21 @@
                 </div>
             </div>
 
-            <div id="row-main" class="row">
 
-                <!--mostraritens ng-repeat="i in itemLista" item-interno="i"></mostraritens-->
-                <div mostraritens ng-repeat="i in itemLista" item-interno="i"></div>
-
-            </div>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th/>
+                        <th> Id </th>
+                        <th> Titulo </th>
+                        <th> Categoria </th>
+                        <th> Descricao </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr mostraritens ng-repeat="i in itemLista" item-interno="i" excluir-complete="removerItem(item)"></tr>
+                </tbody>
+            </table>
 
             <img id="ajax-gif-img-mostraritens" ng-show="listandoFlag" src="/static/img/ajax.gif" style="margin-left: 20px;">
 

@@ -50,9 +50,20 @@ itemModulo.directive('mostraritens',function(){
         replace: true,
         templateUrl: '/static/modulo/html/meuperfil/caixaesquerda/itens/mostraritens.html',
         scope: {
-            itemInterno:'='
+            itemInterno:'=',
+            excluirComplete:'&'
         },
-        controller: function(){
+        controller: function($scope, ItemApi){
+            $scope.excluindoEditandoFlag = false;
+            $scope.excluir = function(){
+                $scope.excluindoEditandoFlag = true;
+                ItemApi.excluir($scope.itemInterno.id).success(function(){
+                    $scope.excluirComplete({'item':$scope.itemInterno})
+
+                }).error(function(data){
+                    console.log(data);
+                });
+            };
 
         }
     };

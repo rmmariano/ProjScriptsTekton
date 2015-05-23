@@ -62,6 +62,8 @@ def index(id_categoria = None):
     __ctx['path_index'] = router.to_path(index)
     __ctx['path_salvar'] = router.to_path(salvar)
     __ctx['path_listar'] = router.to_path(listar)
+    __ctx['path_excluir'] = router.to_path(excluir)
+    __ctx['path_editar'] = router.to_path(editar)
 
     __ctx['itens'] = dumps(item_lista) #converte o item_lista para json
 
