@@ -143,25 +143,24 @@ def listar(_resp,id_cat_buscar = None):
 
 @login_required
 @no_csrf
-def editar(id,**itens):
+def editar(_resp,id,**itens):
     id = int(id)
     item_bd = Item.get_by_id(id)
     item_form = ItemForm(**itens)
     erros = item_form.validate()
-    __ctx['path_editar'] = router.to_path(editar,id)
     if erros:
-        __ctx['erros'] = erros
-        __ctx['item'] = item_form
-        __ctx['sucesso'] = 0
-        return TemplateResponse(__ctx,'/meuperfil/caixaesquerda/itens/editar_form.html')
+        _resp.set_status(400)
+        dct = erros
+    else:
+        item_bd.titulo = itens['titulo']
+        item_bd.id_categoria = itens['id_categoria']
+        item_bd.descricao = itens['descricao']
+        item_bd.put()
 
-    item_bd.titulo = itens['titulo']
-    item_bd.id_categoria = itens['id_categoria']
-    item_bd.descricao = itens['descricao']
-    item_bd.put()
-    __ctx['erros'] = ''
-    __ctx['sucesso'] = 1
-    return RedirectResponse(router.to_path(index))
+        dct = item_form.fill_with_model(item_bd)
+
+    log.info(dct)
+    return JsonUnsecureResponse(dct)
 
 @login_required
 @no_csrf

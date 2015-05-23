@@ -73,10 +73,18 @@ itemModulo.directive('mostraritens',function(){
                 $scope.itemEdicao.titulo = $scope.itemInterno.titulo;
                 $scope.itemEdicao.descricao = $scope.itemInterno.descricao;
                 $scope.itemEdicao.categoria= $scope.itemInterno.categoria;
+                $scope.itemEdicao.id_categoria= $scope.itemInterno.id_categoria;
             };
 
             $scope.cancelarEdicao = function () {
                 $scope.editandoFlag = false;
+            };
+
+            $scope.completarEdicao = function(){
+                ItemApi.editar($scope.itemEdicao).success(function(item){
+                    $scope.itemInterno = item;
+                    $scope.editandoFlag = false;
+                });
             };
 
         }

@@ -20,6 +20,16 @@
                 },
                 excluir: function(id_ex){
                     return $http.post('{{ path_excluir }}',{id:id_ex});
+                },
+                editar: function(item){
+                    return $http.post('{{ path_editar }}',
+                            {
+                                id:item.id,
+                                titulo:item.titulo,
+                                descricao:item.descricao,
+                                id_categoria:item.id_categoria
+                            }
+                    );
                 }
             };
         });
@@ -61,7 +71,6 @@
                     }
                 }
             };
-
         }
     </script>
 {% endblock %}
