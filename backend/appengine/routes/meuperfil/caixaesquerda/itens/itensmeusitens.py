@@ -4,11 +4,11 @@ from config.template_middleware import TemplateResponse
 from gaecookie.decorator import no_csrf
 from gaepermission.decorator import login_required
 from tekton import router
-from tekton.gae.middleware.redirect import RedirectResponse
 from model.db import *
 from tekton.gae.middleware.json_middleware import JsonUnsecureResponse
 from distutils import log
 from json import dumps
+import logging
 
 
 __author__ = 'Rodrigo'
@@ -208,15 +208,21 @@ def salvar(_resp,**itens):
     else:
         item = item_form.fill_model()
         item.put()
+        logging.info(item)
         dct = item_form.fill_with_model(item)
         categorias = (Categoria.query().order(Categoria.categoria)).fetch()
+        logging.info(categorias)
         p_editar_form = router.to_path(editar_form)
         dct['path_editar_form'] = '%s/%s'%(p_editar_form,dct['id'])
+        logging.info(dct)
         key_cat = ndb.Key(Categoria,int(dct['id_categoria']))
+        logging.info(key_cat)
         for cat in categorias:
+            logging.info(cat)
             if key_cat == cat.key:
                 dct['categoria'] = cat.categoria
                 break
         log.info(dct)
+        logging.info(dct)
     return JsonUnsecureResponse(dct)
 
