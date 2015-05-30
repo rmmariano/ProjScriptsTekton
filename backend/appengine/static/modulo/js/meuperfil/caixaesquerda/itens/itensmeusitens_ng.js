@@ -25,7 +25,7 @@ itemModulo.directive('cadastraritemform',function(){
                 var promessa = ItemApi.salvar($scope.itemInterno);
                 promessa.success(function(data){
                     $scope.itemInterno.titulo = '';
-                    $scope.itemInterno.id_categoria = '4863277368606720';
+                    $scope.itemInterno.id_categoria = '5656058538229760';
                     $scope.itemInterno.descricao = '';
                     $scope.salvandoFlag = false;
 
