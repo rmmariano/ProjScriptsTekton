@@ -6,5 +6,6 @@ JQuery:
 https://2-dot-tradesproject.appspot.com
 
 AngularJS:
+https://3-dot-tradesproject.appspot.com/meuperfil/caixaesquerda/itens/itensmeusitens
 
 
