@@ -59,18 +59,10 @@
                         <a href="/courses">{% trans %} Courses {% endtrans %}</a>
                     </li>
                     -->
-                    {% if _logged_user %}
-                        <li {{ 'class=active' if tab=='MEUPERFIL' }}>
-                            <a href="/meuperfil">{% trans %} Meu Perfil {% endtrans %}</a>
-                        </li>
-                        <!--<li {{ 'class=active' if tab=='MINHASTROCAS' }}>
-                            <a href="/minhastrocas">{% trans %} Minhas Trocas {% endtrans %}</a>
-                        </li>
-                        <li {{ 'class=active' if tab=='MINHASDOACOES' }}>
-                            <a href="/minhasdoacoes">{% trans %} Minhas Doações {% endtrans %}</a>
-                        </li> -->
-                    {% endif %}
 
+                    <li {{ 'class=active' if tab=='MEUPERFIL' }}>
+                        <a href="/meuperfil">{% trans %} Meu Perfil {% endtrans %}</a>
+                    </li>
                     <li {{ 'class=active' if tab=='INSTRUCOES' }}>
                         <a href="/instrucoes">{% trans %} Instruções {% endtrans %}</a>
                     </li>

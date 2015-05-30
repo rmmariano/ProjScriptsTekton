@@ -2,7 +2,7 @@
 from __future__ import absolute_import, unicode_literals
 from config.template_middleware import TemplateResponse
 from gaecookie.decorator import no_csrf
-from gaepermission.decorator import login_required
+from gaepermission.decorator import login_not_required
 from tekton import router
 from model.db import *
 from tekton.gae.middleware.json_middleware import JsonUnsecureResponse
@@ -20,7 +20,7 @@ __ctx = {'items':'','item':'','categorias':'','categoria_selecionada':'','erros'
 
 __dct = {'error':''}
 
-@login_required
+@login_not_required
 @no_csrf
 def index(id_categoria = None):
     if id_categoria == None or id_categoria == 'all':
@@ -113,7 +113,7 @@ def index(id_categoria = None, buscar = '0'):
     return TemplateResponse(__ctx)
 '''
 
-@login_required
+@login_not_required
 @no_csrf
 def listar(_resp,id_cat_buscar = None):
     categorias = (Categoria.query().order(Categoria.categoria)).fetch()
@@ -140,7 +140,7 @@ def listar(_resp,id_cat_buscar = None):
 
     return JsonUnsecureResponse(item_lista)
 
-@login_required
+@login_not_required
 @no_csrf
 def editar(_resp,id,**itens):
     id = int(id)
@@ -167,7 +167,7 @@ def editar(_resp,id,**itens):
     log.info(dct)
     return JsonUnsecureResponse(dct)
 
-@login_required
+@login_not_required
 @no_csrf
 def editar_form(id):
     id = int(id)
@@ -181,7 +181,7 @@ def editar_form(id):
     __ctx['categorias'] = categorias
     return TemplateResponse(__ctx,'/meuperfil/caixaesquerda/itens/editar_form.html')
 
-@login_required
+@login_not_required
 @no_csrf
 def excluir(_resp,id):
     if id != '' and id != None:
@@ -197,7 +197,7 @@ def excluir(_resp,id):
 
     return JsonUnsecureResponse(__dct)
 
-@login_required
+@login_not_required
 @no_csrf
 def salvar(_resp,**itens):
     item_form = ItemForm(**itens)
@@ -208,21 +208,23 @@ def salvar(_resp,**itens):
     else:
         item = item_form.fill_model()
         item.put()
-        logging.info(item)
+        logging.info('\n1 item:\n'+str(item))
         dct = item_form.fill_with_model(item)
         categorias = (Categoria.query().order(Categoria.categoria)).fetch()
-        logging.info(categorias)
+        logging.info('\n2 categorias:\n'+str(categorias))
         p_editar_form = router.to_path(editar_form)
         dct['path_editar_form'] = '%s/%s'%(p_editar_form,dct['id'])
-        logging.info(dct)
+        logging.info('\n3 dct acima for:\n'+str(dct))
         key_cat = ndb.Key(Categoria,int(dct['id_categoria']))
-        logging.info(key_cat)
+        logging.info('\n4key_cat acima for:\n'+str(key_cat))
         for cat in categorias:
-            logging.info(cat)
+            logging.info('\n5 cat:\n'+str(cat))
+            logging.info('\n6 key_cat dentro for:\n'+str(key_cat))
+            logging.info('\n7 cat.key:\n'+str(cat.key))
             if key_cat == cat.key:
                 dct['categoria'] = cat.categoria
                 break
         log.info(dct)
-        logging.info(dct)
+        logging.info('\n8 dct abaixo for:\n'+str(dct))
     return JsonUnsecureResponse(dct)
 

@@ -2,7 +2,7 @@
 from __future__ import absolute_import, unicode_literals
 from config.template_middleware import TemplateResponse
 from gaecookie.decorator import no_csrf
-from gaepermission.decorator import login_required
+from gaepermission.decorator import login_not_required
 from model.db import *
 from tekton.gae.middleware.json_middleware import JsonUnsecureResponse
 from distutils import log
@@ -13,7 +13,7 @@ __ctx = {'items':'','categorias':'','erros':''}
 
 
 '''
-@login_required
+@login_not_required
 @no_csrf
 def index():
     __ctx['items'] = ''
@@ -21,7 +21,7 @@ def index():
     __ctx['categorias'] = query.fetch()
     return TemplateResponse(__ctx)
 
-@login_required
+@login_not_required
 @no_csrf
 def salvar(_resp,**itens):
     item_form = ItemForm(**itens)
