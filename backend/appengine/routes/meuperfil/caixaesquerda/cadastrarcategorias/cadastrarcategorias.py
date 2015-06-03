@@ -8,7 +8,7 @@ from model.db import *
 
 __author__ = 'Rodrigo'
 
-__ctx = {'categorias':'','salvar':'','erros':'','sucesso':0}
+__ctx = {'categorias':'','salvar':'','erros':'','sucesso':0,'categoria':''}
 
 @login_not_required
 @no_csrf
@@ -33,4 +33,5 @@ def salvar(**itens):
         categoria = categoria_form.fill_model()
         categoria.put()
         __ctx['sucesso'] = 1
+        __ctx['categoria'] = categoria_form.fill_with_model(categoria)
     return TemplateResponse(__ctx,'/meuperfil/caixaesquerda/cadastrarcategorias/cadastrarcategorias.html')
