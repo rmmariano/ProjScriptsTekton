@@ -2,7 +2,7 @@
 from __future__ import absolute_import, unicode_literals
 from config.template_middleware import TemplateResponse
 from gaecookie.decorator import no_csrf
-from gaepermission.decorator import login_required
+from gaepermission.decorator import login_not_required
 from tekton import router
 from model.db import *
 
@@ -10,7 +10,7 @@ __author__ = 'Rodrigo'
 
 __ctx = {'categorias':'','salvar':'','erros':'','sucesso':0}
 
-@login_required
+@login_not_required
 @no_csrf
 def index():
     __ctx['salvar'] = router.to_path(salvar)
@@ -19,7 +19,7 @@ def index():
     __ctx['erros'] = ''
     return TemplateResponse(__ctx)
 
-@login_required
+@login_not_required
 @no_csrf
 def salvar(**itens):
     __ctx['salvar'] = router.to_path(salvar)

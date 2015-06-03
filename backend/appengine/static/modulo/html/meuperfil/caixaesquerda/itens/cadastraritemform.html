@@ -1,0 +1,48 @@
+<div id="div-cadastraritens" class="container" style="max-width: 500px; text-align: center;">
+    <h1> Cadastrar item </h1>
+    <div id="add-sucesso-div" class="alert alert-success alert-dismissible fade in" role="alert" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+        <strong> Item adicionado com sucesso </strong>
+    </div>
+    <div class="row">
+        <div id="titulo-div" class="form-group" ng-class="{true:'',false:'has-error'}[erros.titulo == null]">
+            <label for="titulo-in" class="control-label"> {{ tituloLabel }} </label>
+            <input id="titulo-in" type="text" class="form-control" ng-model="itemInterno.titulo">
+            <span id="titulo-span" class="help-block" ng-show="erros.titulo">{{ erros.titulo }}</span>
+        </div>
+
+        <div class="col-sm-4 col-md-4" style="width: 100%;">
+            <center><label class="col-sm-3 control-label" style="width: 100%;"> {{ categoriaLabel }} </label></center>
+        </div>
+        <select id="id_categoria" class="form-control" style="margin-bottom: 10px;" ng-model="itemInterno.id_categoria">
+            <!--option value="4863277368606720">Brinquedos e Games</option>
+            <option value="5707702298738688">CDs, DVDs e BLU-RAYs</option>
+            <option value="6270652252160000">Informática</option>
+            <option value="5812155903377408">Livros, Mangás e HQs</option>
+            <option value="5989177275449344">Móveis</option>
+            <option value="5426227322028032">Outros</option>
+            <option value="5144752345317376">Vestuário</option-->
+
+            <option value="5656058538229760">Brinquedos e Games</option>
+            <option value="5734055144325120">CDs, DVDs e BLU-RAYs</option>
+            <option value="5644406560391168">Informática</option>
+            <option value="5668600916475904">Livros, Mangás e HQs</option>
+            <option value="5093108584808448">Móveis</option>
+            <option value="5664248772427776">Outros</option>
+            <option value="5720147234914304">Vestuário</option>
+        </select>
+
+        <div id="descricao-div" class="form-group" ng-class="{true:'',false:'has-error'}[erros.descricao == null]">
+            <label for="descricao-in" class="control-label"> {{ descricaoLabel }} </label>
+            <input id="descricao-in" type="text" class="form-control" ng-model="itemInterno.descricao">
+            <span id="descricao-span" class="help-block" ng-show="erros.descricao">{{ erros.descricao }}</span>
+        </div>
+
+        <div class="row">
+            <button id="adicionar-btn" ng-click="salvar()" ng-hide="salvandoFlag" class="btn bt-preto" style="margin-top: 10px;"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Adicionar </button>
+            <img id="ajax-gif-img" ng-show="salvandoFlag" src="/static/img/ajax.gif" style="margin-left: 20px;">
+        </div>
+    </div>
+</div>
