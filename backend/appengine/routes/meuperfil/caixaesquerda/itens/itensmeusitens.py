@@ -202,28 +202,34 @@ def excluir(_resp,id):
 def salvar(_resp,**itens):
     item_form = ItemForm(**itens)
     erros = item_form.validate()
+    dct = {}
     if erros:
         _resp.set_status(400)
         dct = erros
     else:
-        item = item_form.fill_model()
-        item.put()
-        logging.info('\n1 item:\n'+str(item))
-        dct = item_form.fill_with_model(item)
-        categorias = (Categoria.query().order(Categoria.categoria)).fetch()
-        logging.info('\n2 categorias:\n'+str(categorias))
-        p_editar_form = router.to_path(editar_form)
-        dct['path_editar_form'] = '%s/%s'%(p_editar_form,dct['id'])
-        logging.info('\n3 dct acima for:\n'+str(dct))
-        key_cat = ndb.Key(Categoria,int(dct['id_categoria']))
-        logging.info('\n4key_cat acima for:\n'+str(key_cat))
-        for cat in categorias:
-            logging.info('\n5 cat:\n'+str(cat))
-            logging.info('\n6 key_cat dentro for:\n'+str(key_cat))
-            logging.info('\n7 cat.key:\n'+str(cat.key))
-            if key_cat == cat.key:
-                dct['categoria'] = cat.categoria
-                break
-        log.info(dct)
-        logging.info('\n8 dct abaixo for:\n'+str(dct))
+        try:
+            key_cat = ndb.Key(Categoria,int(itens['id_categoria']))
+            logging.info('\n4key_cat acima for:\n'+str(key_cat))
+            error = 0
+        except:
+            dct['errors'] = {'id_categoria':'Required field'}
+            _resp.set_status(400)
+            error = 1
+        if not error:
+            item = item_form.fill_model()
+            item.put()
+            logging.info('\n1 item:\n'+str(item))
+            dct = item_form.fill_with_model(item)
+            categorias = (Categoria.query().order(Categoria.categoria)).fetch()
+            logging.info('\n2 categorias:\n'+str(categorias))
+            logging.info('\n3 dct acima for:\n'+str(dct))
+            for cat in categorias:
+                logging.info('\n5 cat:\n'+str(cat))
+                logging.info('\n6 key_cat dentro for:\n'+str(key_cat))
+                logging.info('\n7 cat.key:\n'+str(cat.key))
+                if key_cat == cat.key:
+                    dct['categoria'] = cat.categoria
+                    break
+            log.info(dct)
+            logging.info('\n8 dct abaixo for:\n'+str(dct))
     return JsonUnsecureResponse(dct)
