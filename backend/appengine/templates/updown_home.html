@@ -1,0 +1,25 @@
+{% extends 'base/base.html' %}
+{% block body %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <h1>Lista de Arquivos</h1>
+        <ul>
+          {% for arq in arquivos %}
+            <li><a class="btn btn-primary" href="{{ arq.download_path }}">
+              <i class="glyphicon glyphicon-pencil"></i>
+            </a>{{ arq.filename }} <img src="{{ arq.img(64) }}" />
+
+
+            </li>
+          {% endfor %}
+        </ul>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  </div>
+{% endblock %}
