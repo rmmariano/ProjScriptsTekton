@@ -1,25 +1,25 @@
 {% extends 'base/base.html' %}
 {% block body %}
-  <div class="container">
+<div class="container">
     <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <h1>Lista de Arquivos</h1>
-        <ul>
-          {% for arq in arquivos %}
-            <li><a class="btn btn-primary" href="{{ arq.download_path }}">
-              <i class="glyphicon glyphicon-pencil"></i>
-            </a>{{ arq.filename }} <img src="{{ arq.img(64) }}" />
-
-
-            </li>
-          {% endfor %}
-        </ul>
-
-      </div>
-
+        <div class="col-md-6 col-md-offset-3" style="text-align: center;">
+            <div style="width: 100%; margin-bottom: 50px;">
+                <a class="btn btn-info pull-left" style="margin-left: 25px;" href="{{ adicionarnovoitem }}" > Salvar novo item </a>
+            </div>
+            <h1>Lista de Arquivos</h1>
+            <ul>
+                {% for arq in arquivos %}
+                    <li>
+                        <a class="btn btn-primary" href="{{ arq.download_path }}" style="margin-right: 10px;">
+                            <i class="glyphicon glyphicon-pencil"></i>
+                        </a>
+                        {{ arq.filename }}
+                        <img src="{{ arq.img(64) }}" style="height: 200px;" />
+                    </li>
+                {% endfor %}
+            </ul>
+            </div>
+        </div>
     </div>
-
-  </div>
-
-  </div>
+</div>
 {% endblock %}

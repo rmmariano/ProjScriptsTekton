@@ -9,7 +9,6 @@ from gaepermission.decorator import login_not_required
 from tekton.gae.middleware.redirect import RedirectResponse
 from tekton.router import to_path
 
-
 @login_not_required
 @no_csrf
 def download(_handler,id,filename):
@@ -26,10 +25,9 @@ def index():
     for arq in arquivos:
         arq.download_path=to_path(download_path,arq.key.id(),arq.filename)
 
-    ctx={'arquivos':arquivos}
+    add = to_path(form)
+    ctx={'arquivos':arquivos, 'adicionarnovoitem':add}
     return TemplateResponse(ctx, 'updown_home.html')
-
-
 
 @login_not_required
 def upload(_handler, files):
@@ -37,12 +35,12 @@ def upload(_handler, files):
     blob_facade.save_blob_files_cmd(blob_infos).execute()
     return RedirectResponse(index)
 
-
 @login_not_required
 @no_csrf
 def form():
     upload_path = to_path(upload)
     bucket = get_default_gcs_bucket_name()
     url = blobstore.create_upload_url(upload_path, gs_bucket_name=bucket)
-    ctx = {'salvar_path': url}
+    voltar = to_path(index)
+    ctx = {'salvar_path': url,'voltarlistagem':voltar}
     return TemplateResponse(ctx, 'upload_form.html')
