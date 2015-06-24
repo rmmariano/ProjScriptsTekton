@@ -9,13 +9,15 @@
             <h1>Lista de Arquivos</h1>
             <ul>
                 {% for arq in arquivos %}
-                    <li>
-                        <a class="btn btn-primary" href="{{ arq.download_path }}" style="margin-right: 10px;">
-                            <i class="glyphicon glyphicon-pencil"></i>
-                        </a>
-                        {{ arq.filename }}
-                        <img src="{{ arq.img(64) }}" style="height: 200px;" />
-                    </li>
+                    <div style="text-align: left;">
+                        <li>
+                            <a class="btn btn-primary" href="{{ arq.download_path }}" style="margin-right: 10px;">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            </a>
+                            {{ arq.filename }}
+                            <img src="{{ arq.img(64) }}" style="max-height: 200px;" />
+                        </li>
+                    </div>
                 {% endfor %}
             </ul>
             </div>
